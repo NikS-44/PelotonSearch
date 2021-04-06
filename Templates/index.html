@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+    <style>
+    .TitleText {
+    font-size:20pt;
+    }
+    .myDiv {
+      border: 5px;
+      border-style: groove;
+      border-radius: 5px;
+      border-color: transparent;
+      background-color: white;
+      text-align: center;
+      min-height: 240px;
+      max-width: 900px;
+      min-width: 750px;
+      margin:auto;
+      position:relative;
+      box-shadow: 2px 2px 3px #888888;
+    }
+    .small {
+      line-height: 5px;
+    }
+    .searchBox {
+<!--   Shows a weird border without a comment here no idea why. -->
+      border-style: groove;
+      border-radius: 5px;
+      border-color: lightsteelgray;
+      background-color: white;
+      text-align: center;
+      min-height: 160px;
+      max-width: 750px;
+      min-width: 750px;
+      margin: auto;
+      box-shadow: 2px 2px 5px #888888;
+    }
+
+    .small {
+      line-height: 5px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    b.red {
+        color:red;
+    }
+    b.darkred {
+        color:darkred;
+    }
+    b.orange {
+        color:orange;
+    }
+    b.green {
+        color:green;
+    }
+
+    b.lightgreen {
+        color:limegreen;
+    }
+    .form-control
+    {
+        font-size:13pt;
+    }
+    .dropdown
+    {
+        font-size:16pt;
+    }
+    .submitbutton
+    {
+        height:30px;
+        width:100px;
+        font-size:16pt;
+    }
+    .chosen-select
+    {
+        width:550px;
+        font-size: 20px
+    }
+    h4{
+        line-height: 1;
+    }
+
+    </style>
+
+</head>
+<body style="background-color:#e4e7eb;">
+    <div class=searchBox>
+        <br>
+<!--        <div class="TitleText">-->
+<!--            Peloton Search-->
+<!--        </div>-->
+        <div style="text-align:center">
+        <input type="text" name="title" id="title" class="form-control" placeholder="Search Title" >
+        <input type="text" name="artist" id="artist" class="form-control" placeholder="Search Song Artist" >
+        <input type="checkbox" id="excludeartist" name="excludeartist" value="exclude">
+        <label for="excludeartist">Exclude Artist</label>
+        </div>
+        <br>
+        <div style="text-align:center">
+        <select name="difficultycat" id="difficultycat" class="dropdown">
+              <option value="">Choose Difficulty</option>
+              <option value="Very Easy">Very Easy</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+              <option value="Very Hard">Very Hard</option>
+              <option value="Power Zone">Power Zone</option>
+        </select>
+        <select name="typecat" id="typecat" class="dropdown">
+              <option value="">Choose Category</option>
+              <option value="Intervals">Intervals</option>
+              <option value="Low Impact">Low Impact</option>
+              <option value="Climb">Climb</option>
+              <option value="Power Zone">Power Zone</option>
+              <option value="Heart Rate Zone">Heart Rate Zone</option>
+              <option value="Theme">Theme</option>
+              <option value="Music">Music</option>
+              <option value="Groove">Groove</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Pro Cyclist">Pro Cyclist</option>
+              <option value="Live DJ">Live DJ</option>
+        </select>
+
+<!--        <select name="duration" id="duration" class="chosen-select">-->
+        <select name="duration" id="duration" class="dropdown">
+          <option value="">Choose Class Duration</option>
+          <option value="5">5 Minutes</option>
+          <option value="10">10 Minutes</option>
+          <option value="15">15 Minutes</option>
+          <option value="20">20 Minutes</option>
+          <option value="30">30 Minutes</option>
+          <option value="45">45 Minutes</option>
+          <option value="60">60 Minutes</option>
+          <option value="75">75 Minutes</option>
+          <option value="90">90 Minutes</option>
+      </select>
+        </div>
+        <br>
+        <div style="text-align:center">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+        <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+            <select data-placeholder="Choose Instructors..." multiple class="chosen-select" name="instructorlist" id="instructorlist" style="width: 550px">
+              <option value="Matt Wilpers">Matt Wilpers</option>
+              <option value="Sam Yo">Sam Yo</option>
+              <option value="Tunde Oyeneyin">Tunde Oyeneyin</option>
+              <option value="Hannah Frankson">Hannah Frankson</option>
+              <option value="Alex Toussaint">Alex Toussaint</option>
+              <option value="Ben Alldis">Ben Alldis</option>
+              <option value="Cody Rigsby">Cody Rigsby</option>
+              <option value="Bradley Rose">Bradley Rose</option>
+              <option value="Ally Love">Ally Love</option>
+              <option value="Christine D'Ercole">Christine D'Ercole</option>
+              <option value="Jenn Sherman">Jenn Sherman</option>
+              <option value="Denis Morton">Denis Morton</option>
+              <option value="Emma Lovewell">Emma Lovewell</option>
+              <option value="Erik Jäger">Eric Jäger</option>
+              <option value="Hannah Corbin">Hannah Corbin</option>
+              <option value="Irene Scholz">Irene Scholz</option>
+              <option value="Jess King">Jess King</option>
+              <option value="Kendall Toole">Kendall Toole</option>
+              <option value="Leanne Hainsby">Leanne Hainsby</option>
+              <option value="Olivia Amato">Olivia Amato</option>
+              <option value="Robin Arzon">Robin Arzon</option>
+              <option value="Christian Vande Velde">Christian Vande Velde</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div style="text-align:center"><button type="button" id="submitBtn" class="submitbutton">Submit</button></div>
+	<p id = "datalist" class="small"></p>
+    <script>
+        $(".chosen-select").chosen({
+            no_results_text: "Oops, nothing found!"
+        });
+        $(".chosen-results").css('font-size','20px');
+        $(document).ready(function(e){
+           $("#submitBtn").on("click",function(e){
+                var titlelivebox = $("#title").val();
+                var artistlivebox = $("#artist").val();
+                var difficultycatlivebox = $("#difficultycat").val();
+                var durationlivebox = $("#duration").val();
+                var typecatlivebox = $("#typecat").val();
+                var chosenlivebox = $("#instructorlist").chosen().val();
+                var excludeartistbox = "";
+                if ($("#excludeartist").is(":checked"))
+                {
+                    excludeartistbox = "exclude";
+                }
+                else
+                {
+                    excludeartistbox = "include";
+                }
+                $.ajax({
+                    method:"POST",
+                    url:"/PelotonSearch",
+                    data:{title:titlelivebox, difficultycat:difficultycatlivebox, duration:durationlivebox, instructorchosen:chosenlivebox, typecat:typecatlivebox, artist:artistlivebox, excludeartist:excludeartistbox},
+                    success:function(res){
+                        console.log(res);
+                        var data = "";
+                        var diffcolored = "";
+                        $.each(res,function(index,value){
+                            if (value.Difficulty_Category == "Very Easy")
+                            {
+                                diffcolored = "   ·   <b class=lightgreen>▊"+value.Difficulty_Category+"</b>";
+                            }
+                            if (value.Difficulty_Category == "Easy")
+                            {
+                                diffcolored = "   ·   <b class=green>▊"+value.Difficulty_Category+"</b>";
+                            }
+                            if (value.Difficulty_Category == "Medium")
+                            {
+                               diffcolored = "   ·   <b class=orange>▊"+value.Difficulty_Category+"</b>";
+                            }
+                            if (value.Difficulty_Category == "Hard")
+                            {
+                                diffcolored = "   ·   <b class=red>▊"+value.Difficulty_Category+"</b>";
+                            }
+                            if (value.Difficulty_Category == "Very Hard")
+                            {
+                               diffcolored = "   ·   <b class=darkred>▊"+value.Difficulty_Category+"</b>";
+                            }
+                            if (value.Difficulty_Category == "Power Zone")
+                            {
+                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                            }
+                            else
+                            {
+                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+ diffcolored +"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                            }
+                            data+="<h4>Artists: ";
+                            var SongJSON = JSON.parse(value.Songs);
+                            for (var i=0; i<SongJSON.length; i++){
+                                if( i == 0 ){
+                                    data+=SongJSON[i].Artist;
+                                }
+                                else{
+                                    data+=", "+ SongJSON[i].Artist;
+                                }
+                            }
+                            data+="</h4></div></a><br>";
+                        });
+                        $("#datalist").html(data);
+                    }
+                })
+            });
+        })
+    </script>
+
+</body>
+</html>
