@@ -1,0 +1,1 @@
+![](PelotonSearchScreenCap.gif)
