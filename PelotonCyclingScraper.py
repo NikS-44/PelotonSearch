@@ -83,7 +83,7 @@ def Cycling_Scrape_MySQL():
                 try:
                     workout_file.write(workout_info_raw.text)
                 except UnicodeEncodeError:
-                    print(f"Error with name on order number: {workout_id}")
+                    print(f"Error with workout id: {workout_id}")
         print("\n")
         songs = workout_info['playlist']['songs']
         title = workout_info['ride']['title']
