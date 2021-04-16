@@ -121,12 +121,12 @@ def Cycling_Scrape_MySQL():
         except KeyError:
             print(f"Output Targets Not Defined")
         # Custom difficulty range/categories based on expected output
-        difficulty_category = "Power Zone" if difficulty_rating == 0 \
-            else "Very Easy" if difficulty_rating < 3.6 \
+        difficulty_category = "PowerZone" if difficulty_rating == 0 \
+            else "VeryEasy" if difficulty_rating < 3.6 \
             else "Easy" if difficulty_rating < 4.6 \
             else "Medium" if difficulty_rating <= 5.6 \
             else "Hard" if difficulty_rating <= 6.5 \
-            else "Very Hard"
+            else "VeryHard"
         print(f"Instructor: {instructor}")
         print(f"Title: {title}")
         print(f"Difficulty: {difficulty_rating}")
