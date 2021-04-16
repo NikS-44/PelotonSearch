@@ -131,11 +131,14 @@
                             }
                             if (value.Difficulty_Category == "PowerZone")
                             {
-                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                               "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             else
                             {
-                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+ "    ·   <b class=" + value.Difficulty_Category + " >▊"+ diffParsed +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                               "</h3><h3>"+value.Instructor+ "    ·   <b class=" + value.Difficulty_Category + " >▊"+ diffParsed +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
+                               "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             data+="<h4>Artists: ";
                             var SongJSON = JSON.parse(value.Songs);
