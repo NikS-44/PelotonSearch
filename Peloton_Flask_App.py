@@ -21,6 +21,9 @@ db = MySQL(app)
 def index():
     return render_template('index.html')
 
+@app.route('/pelotonstyle.css')
+def pelotoncss():
+    return render_template('pelotonstyle.css',)
 
 @app.route("/PelotonSearch", methods=["POST", "GET"])
 def PelotonSearch():
