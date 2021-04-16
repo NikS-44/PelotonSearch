@@ -58,7 +58,10 @@ def PelotonSearch():
     cursor = db.connection.cursor()
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Double %% to escape the python % syntax
-    query = f"""select * from cycling_records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC"""
+    query = (
+                f"""select * from cycling_records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" """
+                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC"""
+            )
     param = '%{}%'.format(title_box)
     cursor.execute(query, (param,))
     results = cursor.fetchall()
