@@ -11,7 +11,6 @@
     font-size:20pt;
     }
     .myDiv {
-      border: 5px;
       border-style: groove;
       border-radius: 5px;
       border-color: transparent;
@@ -28,13 +27,13 @@
       line-height: 5px;
     }
     .searchBox {
-<!--   Shows a weird border without a comment here no idea why. -->
+      border: 5px;
       border-style: groove;
       border-radius: 5px;
-      border-color: lightsteelgray;
+      border-color: transparent;
       background-color: white;
       text-align: center;
-      min-height: 160px;
+      min-height: 150px;
       max-width: 750px;
       min-width: 750px;
       margin: auto;
@@ -49,20 +48,19 @@
         color: inherit;
         text-decoration: none;
     }
-    b.red {
+    .Hard {
         color:red;
     }
-    b.darkred {
+    .VeryHard {
         color:darkred;
     }
-    b.orange {
+    .Medium {
         color:orange;
     }
-    b.green {
+    .Easy {
         color:green;
     }
-
-    b.lightgreen {
+    .VeryEasy {
         color:limegreen;
     }
     .form-control
@@ -87,6 +85,9 @@
     h4{
         line-height: 1;
     }
+    .textbox{
+        text-align:center
+    }
 
     </style>
 
@@ -94,25 +95,22 @@
 <body style="background-color:#e4e7eb;">
     <div class=searchBox>
         <br>
-<!--        <div class="TitleText">-->
-<!--            Peloton Search-->
-<!--        </div>-->
-        <div style="text-align:center">
+        <div class="textbox">
         <input type="text" name="title" id="title" class="form-control" placeholder="Search Title" >
         <input type="text" name="artist" id="artist" class="form-control" placeholder="Search Song Artist" >
         <input type="checkbox" id="excludeartist" name="excludeartist" value="exclude">
         <label for="excludeartist">Exclude Artist</label>
         </div>
         <br>
-        <div style="text-align:center">
+        <div class="textbox">
         <select name="difficultycat" id="difficultycat" class="dropdown">
               <option value="">Choose Difficulty</option>
-              <option value="Very Easy">Very Easy</option>
+              <option value="VeryEasy">Very Easy</option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
-              <option value="Very Hard">Very Hard</option>
-              <option value="Power Zone">Power Zone</option>
+              <option value="VeryHard">Very Hard</option>
+              <option value="PowerZone">Power Zone</option>
         </select>
         <select name="typecat" id="typecat" class="dropdown">
               <option value="">Choose Category</option>
@@ -144,7 +142,7 @@
       </select>
         </div>
         <br>
-        <div style="text-align:center">
+        <div class="textbox">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
         <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
@@ -175,7 +173,7 @@
         </div>
     </div>
     <br>
-    <div style="text-align:center"><button type="button" id="submitBtn" class="submitbutton">Submit</button></div>
+    <div class="textbox"><button type="button" id="submitBtn" class="submitbutton">Submit</button></div>
 	<p id = "datalist" class="small"></p>
     <script>
         $(".chosen-select").chosen({
@@ -206,35 +204,14 @@
                     success:function(res){
                         console.log(res);
                         var data = "";
-                        var diffcolored = "";
                         $.each(res,function(index,value){
-                            if (value.Difficulty_Category == "Very Easy")
-                            {
-                                diffcolored = "   ·   <b class=lightgreen>▊"+value.Difficulty_Category+"</b>";
-                            }
-                            if (value.Difficulty_Category == "Easy")
-                            {
-                                diffcolored = "   ·   <b class=green>▊"+value.Difficulty_Category+"</b>";
-                            }
-                            if (value.Difficulty_Category == "Medium")
-                            {
-                               diffcolored = "   ·   <b class=orange>▊"+value.Difficulty_Category+"</b>";
-                            }
-                            if (value.Difficulty_Category == "Hard")
-                            {
-                                diffcolored = "   ·   <b class=red>▊"+value.Difficulty_Category+"</b>";
-                            }
-                            if (value.Difficulty_Category == "Very Hard")
-                            {
-                               diffcolored = "   ·   <b class=darkred>▊"+value.Difficulty_Category+"</b>";
-                            }
                             if (value.Difficulty_Category == "Power Zone")
                             {
                                data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             else
                             {
-                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+ diffcolored +"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                               data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+"</h3><h3>"+value.Instructor+ "    ·   <b class=" + value.Difficulty_Category + " >▊"+value.Difficulty_Category+"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             data+="<h4>Artists: ";
                             var SongJSON = JSON.parse(value.Songs);

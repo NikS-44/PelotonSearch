@@ -59,7 +59,7 @@ def Cycling_Scrape_MySQL():
     cookies = {'peloton_session_id': os.getenv('peloton_session_id')}
     # Change workout request limit to set the number of classes to fetch details on.
     # For initial database build, start with a value of 9000, then you can rerun this daily with a value of 100
-    workout_request_limit = 100
+    workout_request_limit = 9000
     url = f"https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&limit={workout_request_limit}&content_format=audio%2Cvideo&page=0&sort_by=original_air_time&desc=true"
     page_raw = requests.get(url, headers=headers, cookies=cookies)
     page = json.loads(page_raw.text)
