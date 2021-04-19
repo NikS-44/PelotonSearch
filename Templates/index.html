@@ -99,30 +99,30 @@
         $(".chosen-results").css('font-size','20px');
         $(document).ready(function(e){
            $("#submitBtn").on("click",function(e){
-                var titlelivebox = $("#title").val();
-                var artistlivebox = $("#artist").val();
-                var difficultycatlivebox = $("#difficultycat").val();
-                var durationlivebox = $("#duration").val();
-                var typecatlivebox = $("#typecat").val();
-                var chosenlivebox = $("#instructorlist").chosen().val();
-                var excludeartistbox = "";
+                let titleLivebox = $("#title").val();
+                let artistLivebox = $("#artist").val();
+                let difficultyCatLivebox = $("#difficultycat").val();
+                let durationLivebox = $("#duration").val();
+                let typeCatLivebox = $("#typecat").val();
+                let chosenLivebox = $("#instructorlist").chosen().val();
+                let excludeArtistbox = "";
                 if ($("#excludeartist").is(":checked"))
                 {
-                    excludeartistbox = "exclude";
+                    excludeArtistbox = "exclude";
                 }
                 else
                 {
-                    excludeartistbox = "include";
+                    excludeArtistbox = "include";
                 }
                 $.ajax({
                     method:"POST",
                     url:"/PelotonSearch",
-                    data:{title:titlelivebox, difficultycat:difficultycatlivebox, duration:durationlivebox, instructorchosen:chosenlivebox, typecat:typecatlivebox, artist:artistlivebox, excludeartist:excludeartistbox},
+                    data:{title:titleLivebox, difficultycat:difficultyCatLivebox, duration:durationLivebox, instructorchosen:chosenLivebox, typecat:typeCatLivebox, artist:artistLivebox, excludeartist:excludeArtistbox},
                     success:function(res){
-                        console.log(res);
-                        var data = "";
+                        //console.log(res);
+                        let data = "";
                         $.each(res,function(index,value){
-                            var diffParsed = value.Difficulty_Category;
+                            let diffParsed = value.Difficulty_Category;
                             if (value.Difficulty_Category == "VeryEasy"){
                                 diffParsed = "Very Easy"
                             }
@@ -141,13 +141,13 @@
                                "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             data+="<h4>Artists: ";
-                            var SongJSON = JSON.parse(value.Songs);
-                            for (var i=0; i<SongJSON.length; i++){
+                            let songJSON = JSON.parse(value.Songs);
+                            for (var i=0; i<songJSON.length; i++){
                                 if( i == 0 ){
-                                    data+=SongJSON[i].Artist;
+                                    data+=songJSON[i].Artist;
                                 }
                                 else{
-                                    data+=", "+ SongJSON[i].Artist;
+                                    data+=", "+ songJSON[i].Artist;
                                 }
                             }
                             data+="</h4></div></a><br>";
@@ -158,6 +158,5 @@
             });
         })
     </script>
-
 </body>
 </html>
