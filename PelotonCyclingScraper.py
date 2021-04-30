@@ -27,8 +27,6 @@ class CyclingWorkout:
         workout_info = self.get_workout_info_json()
         self.title = workout_info['ride']['title']
         self.instructor = workout_info['ride']['instructor']['name']
-        # User_rating will be updated from the initial multi-class page request as to get latest ratings when
-        # updating existing records
         self.user_rating = round(float(workout_json['overall_estimate']) * 100, 3)
         self.peloton_difficulty_rating = round(float(workout_json['difficulty_estimate']), 2)
         self.duration = int(workout_info['ride']['duration']) / 60
@@ -147,6 +145,9 @@ def mysql_database_initialization(username, password):
             db_init_cursor.execute("""CREATE DATABASE IF NOT EXISTS Peloton""")
     except Error as e:
         print(e)
+
+
+def mysql_cycling_record_table_create(username, password):
     try:
         with connect(
                 host="localhost",
@@ -191,6 +192,7 @@ if __name__ == "__main__":
     MYSQL_password = os.getenv('MYSQL_Password')
     # Create database and/or table if it does not exist yet
     mysql_database_initialization(MYSQL_username, MYSQL_password)
+    mysql_cycling_record_table_create(MYSQL_username, MYSQL_password)
     # Change workout request limit to set the number of classes to fetch details on
     workout_request_limit = 9000
     # My peloton_session_id cookie is stored in the OS system environment variables
