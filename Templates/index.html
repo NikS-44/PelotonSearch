@@ -25,11 +25,11 @@
         <div class="textbox">
         <select name="difficultycat" id="difficultycat" class="dropdown">
               <option value="">Choose Difficulty</option>
-              <option value="VeryEasy">Very Easy</option>
+              <option value="Very Easy">Very Easy</option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
-              <option value="VeryHard">Very Hard</option>
+              <option value="Very Hard">Very Hard</option>
               <option value="PowerZone">Power Zone</option>
         </select>
         </div>
@@ -129,13 +129,13 @@
                         let data = "";
                         $.each(res,function(index,value){
                             let diffParsed = value.Difficulty_Category;
-                            if (value.Difficulty_Category == "VeryEasy"){
-                                diffParsed = "Very Easy"
+                            if (value.Difficulty_Category == "Very Easy"){
+                                diffParsed = "VeryEasy"
                             }
-                            if (value.Difficulty_Category == "VeryHard"){
-                                diffParsed = "Very Hard"
+                            if (value.Difficulty_Category == "Very Hard"){
+                                diffParsed = "VeryHard"
                             }
-                            if (value.Difficulty_Category == "PowerZone")
+                            if (value.Difficulty_Category == "Power Zone")
                             {
                                data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                                "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
@@ -143,7 +143,7 @@
                             else
                             {
                                data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
-                               "</h3><h3>"+value.Instructor+ "    ·   <b class=" + value.Difficulty_Category + " >▊"+ diffParsed +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
+                               "</h3><h3>"+value.Instructor+ "    ·   <b class=" +diffParsed+ " >▊"+ value.Difficulty_Category +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
                                "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                             }
                             data+="<h4>Artists: ";

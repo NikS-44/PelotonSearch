@@ -22,13 +22,13 @@ cycling_workout_types = {"7579b9edbdf9464fa19eb58193897a73": "Intervals",
 
 
 class CyclingWorkout:
-    def __init__(self, workout_json):
-        self.workout_id = workout_json['id']
-        workout_info = self.get_workout_info_json()
+    def __init__(self, latest_workout_json):
+        self.workout_id = latest_workout_json['id']
+        self.user_rating = round(float(latest_workout_json['overall_estimate']) * 100, 3)
+        self.peloton_difficulty_rating = round(float(latest_workout_json['difficulty_estimate']), 2)
+        workout_info = self.get_local_workout_info_json()
         self.title = workout_info['ride']['title']
         self.instructor = workout_info['ride']['instructor']['name']
-        self.user_rating = round(float(workout_json['overall_estimate']) * 100, 3)
-        self.peloton_difficulty_rating = round(float(workout_json['difficulty_estimate']), 2)
         self.duration = int(workout_info['ride']['duration']) / 60
         workout_type_id = workout_info['ride']['class_type_ids'][0]
         self.air_date = datetime.utcfromtimestamp(workout_info['ride']['original_air_time']).strftime('%Y-%m-%d')
@@ -52,12 +52,12 @@ class CyclingWorkout:
         except KeyError:
             print(f"Output Targets Not Defined")
         # Custom difficulty range/categories based on expected output
-        self.difficulty_category = "PowerZone" if self.difficulty_rating == 0 \
-            else "VeryEasy" if self.difficulty_rating < 3.6 \
+        self.difficulty_category = "Power Zone" if self.difficulty_rating == 0 \
+            else "Very Easy" if self.difficulty_rating < 3.6 \
             else "Easy" if self.difficulty_rating < 4.6 \
             else "Medium" if self.difficulty_rating <= 5.6 \
             else "Hard" if self.difficulty_rating <= 6.5 \
-            else "VeryHard"
+            else "Very Hard"
         self.workout_link = f'https://members.onepeloton.com/classes/cycling?modal=classDetailsModal&classId={self.workout_id}'
         # Rebuild Artist/Song JSON because there was a lot metadata we didn't need that was slowing Database queries
         songs = workout_info['playlist']['songs']
@@ -85,7 +85,7 @@ class CyclingWorkout:
         print(f"Image Link: {self.image_link}")
         print(f"Workout Link:{self.workout_link}")
 
-    def get_workout_info_json(self):
+    def get_local_workout_info_json(self):
         # Keep local copies of classes as to not spam the API
         if os.path.isfile(f"./classes/{self.workout_id}.json"):
             with open(f'./classes/{self.workout_id}.json', 'r', encoding='utf8') as workout_file:
