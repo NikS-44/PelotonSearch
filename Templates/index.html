@@ -30,7 +30,7 @@
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
               <option value="Very Hard">Very Hard</option>
-              <option value="PowerZone">Power Zone</option>
+              <option value="Power Zone">Power Zone</option>
         </select>
         </div>
         <div class="textbox">
@@ -129,13 +129,13 @@
                         let data = "";
                         $.each(res,function(index,value){
                             let diffParsed = value.Difficulty_Category;
-                            if (value.Difficulty_Category == "Very Easy"){
+                            if (value.Difficulty_Category === "Very Easy"){
                                 diffParsed = "VeryEasy"
                             }
-                            if (value.Difficulty_Category == "Very Hard"){
+                            if (value.Difficulty_Category === "Very Hard"){
                                 diffParsed = "VeryHard"
                             }
-                            if (value.Difficulty_Category == "Power Zone")
+                            if (value.Difficulty_Category === "Power Zone")
                             {
                                data+= "<div class=myDiv><a href="+value.Workout_Link+"><img src="+value.Thumbnail+" style=float:left height=240 width=360><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                                "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
@@ -149,7 +149,7 @@
                             data+="<h4>Artists: ";
                             let songJSON = JSON.parse(value.Songs);
                             for (var i=0; i<songJSON.length; i++){
-                                if( i == 0 ){
+                                if( i === 0 ){
                                     data+=songJSON[i].Artist;
                                 }
                                 else{
