@@ -97,8 +97,35 @@
     </div>
     <br>
     <div class="textbox"><button type="button" id="submitBtn" class="submitbutton">Submit</button></div>
-	<p id = "datalist" class="small"></p>
+    <br><div class="linkBox"><input type="button" value="Copy Search Url" onclick="Copy();"/><br><textarea id="sharelink" rows="2" cols="40"></textarea></div>
+
+	<p id ="datalist" class="small"></p>
     <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let currentLocation = window.location.protocol+"//"+window.location.host;
+
+        function Copy() {
+          var Url = document.getElementById("sharelink");
+          Url.select();
+          document.execCommand("copy");
+        }
+
+        window.onload=function(){
+            let durationParam= document.getElementById("duration");
+            let difficultyParam= document.getElementById("difficultycat");
+            let typeParam= document.getElementById("typecat");
+            if (urlParams.get("duration")){
+                durationParam.value = urlParams.get("duration");
+                }
+            if (urlParams.get("difficulty")){
+                difficultyParam.value = urlParams.get("difficulty");
+                }
+            if (urlParams.get("category")){
+                typeParam.value = urlParams.get("category");
+                }
+            $(".chosen-select").val(urlParams.getAll('instructor')).trigger("chosen:updated");
+        }
         $(".chosen-select").chosen({
             no_results_text: "Oops, nothing found!"
         });
@@ -159,6 +186,20 @@
                             data+="</h4></div></a><br>";
                         });
                         $("#datalist").html(data);
+                        let shareableLink=currentLocation+"/?";
+                        if(durationLivebox){
+                            shareableLink+="duration="+encodeURIComponent(durationLivebox)+"&";
+                        }
+                        if(difficultyCatLivebox){
+                            shareableLink+="difficulty="+encodeURIComponent(difficultyCatLivebox)+"&";
+                        }
+                        if(difficultyCatLivebox){
+                            shareableLink+="category="+encodeURIComponent(typeCatLivebox)+"&";
+                        }
+                        for (var j=0; j<chosenLivebox.length; j++){
+                            shareableLink+="instructor="+encodeURIComponent(chosenLivebox[j])+"&";
+                        }
+                        $("#sharelink").html(shareableLink);
                     }
                 })
             });
