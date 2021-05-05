@@ -5,6 +5,7 @@ import os
 from re import search
 import json
 from unidecode import unidecode
+#import mariadb
 
 app = Flask(__name__)
 
@@ -37,6 +38,12 @@ def PelotonSearch():
     exclude_artist_box = request.form.get("excludeartist")
     duration = request.form.get("duration")
     search_index = request.form.get("searchindex")
+    # In this crappy implementation, I am not filtering artists in SQL because it seemed complicated to filter the
+    # artists somehow using a JSON search inside of an SQL query. For now, if you do a artist search, I am not
+    # limiting the results
+    result_limit = 10
+    if artist_box:
+        result_limit = 100000
     # Check the state of the Exclude Artist Checkbox
     if exclude_artist_box == "exclude":
         exclude_artist = True
@@ -57,11 +64,13 @@ def PelotonSearch():
         instructor_sql += ")"
 
     cursor = db.connection.cursor()
+    # db = mariadb.connect(user="nik", password="", host="localhost", database="Peloton")
+    # cursor = db.cursor(dictionary=True)
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Double %% to escape the python % syntax
     query = (
-                f"""select * from cycling_records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" """
-                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC LIMIT 10 OFFSET {search_index}"""
+                f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" """
+                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
             )
     param = '%{}%'.format(title_box)
     cursor.execute(query, (param,))
