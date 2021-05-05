@@ -36,6 +36,7 @@ def PelotonSearch():
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("excludeartist")
     duration = request.form.get("duration")
+    search_index = request.form.get("searchindex")
     # Check the state of the Exclude Artist Checkbox
     if exclude_artist_box == "exclude":
         exclude_artist = True
@@ -60,7 +61,7 @@ def PelotonSearch():
     # Double %% to escape the python % syntax
     query = (
                 f"""select * from cycling_records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" """
-                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC"""
+                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC LIMIT 10 OFFSET {search_index}"""
             )
     param = '%{}%'.format(title_box)
     cursor.execute(query, (param,))
