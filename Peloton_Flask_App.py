@@ -5,7 +5,8 @@ import os
 from re import search
 import json
 from unidecode import unidecode
-#import mariadb
+
+# import mariadb
 
 app = Flask(__name__)
 
@@ -18,22 +19,44 @@ app.config["MYSQL_AUTH_PLUGIN"] = "MYSQL_NATIVE_PASSWORD"
 db = MySQL(app)
 
 
+def multi_sql_format(item_list, sql_category):
+    if not item_list:
+        item_sql = ""
+    else:
+        item_sql = f"and {sql_category} IN ("
+        first = 1
+        for item in item_list:
+            if first:
+                item_sql += '"' + item + '"'
+                first = 0
+            else:
+                item_sql += ', "' + item + '"'
+        item_sql += ")"
+    return item_sql
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/pelotonstyle.css')
 def pelotoncss():
-    return render_template('pelotonstyle.css',)
+    return render_template('pelotonstyle.css', )
+
 
 @app.route("/PelotonSearch", methods=["POST", "GET"])
 def PelotonSearch():
+    cursor = db.connection.cursor()
+    # db = mariadb.connect(user="nik", password="", host="localhost", database="Peloton")
+    # cursor = db.cursor(dictionary=True)
 
     # Get User Inputs from Page Forms
     title_box = request.form.get("title")
-    difficulty_category_box = request.form.get("difficultycat")
+    difficulty_list = request.form.getlist("difficultycatchosen[]")
     instructor_list = request.form.getlist("instructorchosen[]")
-    type_box = request.form.get("typecat")
+    duration_list = request.form.getlist("durationchosen[]")
+    category_list = request.form.getlist("typecatchosen[]")
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("excludeartist")
     duration = request.form.get("duration")
@@ -49,29 +72,19 @@ def PelotonSearch():
         exclude_artist = True
     else:
         exclude_artist = False
-    # Build an SQL command for searching on multiple input Instructor field
-    if not instructor_list:
-        instructor_sql = ""
-    else:
-        instructor_sql = "and Instructor IN ("
-        first = 1
-        for instructor in instructor_list:
-            if first:
-                instructor_sql += '"' + instructor + '"'
-                first = 0
-            else:
-                instructor_sql += ', "' + instructor + '"'
-        instructor_sql += ")"
 
-    cursor = db.connection.cursor()
-    # db = mariadb.connect(user="nik", password="", host="localhost", database="Peloton")
-    # cursor = db.cursor(dictionary=True)
+    difficulty_sql = multi_sql_format(difficulty_list, "Difficulty_Category")
+    category_sql = multi_sql_format(category_list, "Workout_Type")
+    instructor_sql = multi_sql_format(instructor_list, "Instructor")
+    duration_sql = multi_sql_format(duration_list, "Workout_Length")
+
+
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Double %% to escape the python % syntax
     query = (
-                f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} and Difficulty_Category LIKE "{difficulty_category_box}%%" """
-                f"""and Workout_Length LIKE "{duration}%%" and Workout_Type LIKE "{type_box}%%" order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
-            )
+        f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} {difficulty_sql} """
+        f"""{duration_sql} {category_sql} order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
+    )
     param = '%{}%'.format(title_box)
     cursor.execute(query, (param,))
     results = cursor.fetchall()
@@ -86,11 +99,13 @@ def PelotonSearch():
             for artist_entry in artist_results:
                 if exclude_artist:
                     # Added unidecode argument to match Artists with non-standard ascii characters such as Tiësto and Beyoncé
-                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(artist_entry['Artist']), re.IGNORECASE):
+                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(
+                            artist_entry['Artist']), re.IGNORECASE):
                         add_entry = False
                         break
                 else:
-                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(artist_entry['Artist']), re.IGNORECASE):
+                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(
+                            artist_entry['Artist']), re.IGNORECASE):
                         add_entry = True
                         break
             if add_entry:
@@ -98,6 +113,8 @@ def PelotonSearch():
     else:
         filtered_results = results
     cursor.close()
+    #add this in for mariadb
+    #db.close()
     return jsonify(filtered_results)
 
 

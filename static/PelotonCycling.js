@@ -6,7 +6,10 @@ function Copy() {
 }
 
 $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-results").css('font-size','20px');
+$(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
+$(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
+$(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
+//$(".chosen-results").css('font-size','20px');
 
 
 let queryString = window.location.search;
@@ -21,9 +24,9 @@ let scrollReady = true;
 function UpdateSearch(){
     let titleLivebox = $("#title").val();
     let artistLivebox = $("#artist").val();
-    let difficultyCatLivebox = $("#difficultycat").val();
-    let durationLivebox = $("#duration").val();
-    let typeCatLivebox = $("#typecat").val();
+    let difficultyCatChosen = $("#multdifficultycat").val();
+    let typeCatChosen = $("#multtypecat").chosen().val();
+    let durationChosen = $("#multDuration").chosen().val();
     let chosenLivebox = $("#instructorlist").chosen().val();
     let excludeArtistbox = "";
     if ($("#excludeartist").is(":checked")){
@@ -48,7 +51,7 @@ function UpdateSearch(){
     $.ajax({
         method:"POST",
         url:"/PelotonSearch",
-        data:{title:titleLivebox, difficultycat:difficultyCatLivebox, duration:durationLivebox, instructorchosen:chosenLivebox, typecat:typeCatLivebox, artist:artistLivebox, excludeartist:excludeArtistbox, searchindex:searchIndex},
+        data:{title:titleLivebox, difficultycatchosen:difficultyCatChosen, durationchosen:durationChosen, instructorchosen:chosenLivebox, typecatchosen:typeCatChosen, artist:artistLivebox, excludeartist:excludeArtistbox, searchindex:searchIndex},
         success:function(res){
             //console.log(res);
             let stopSearch = data;
@@ -96,14 +99,20 @@ function UpdateSearch(){
             if(artistLivebox){
                 shareableLink+="artist="+encodeURIComponent(artistLivebox)+"&";
             }
-            if(durationLivebox){
-                shareableLink+="duration="+encodeURIComponent(durationLivebox)+"&";
+            if(durationChosen){
+                for (let j=0; j<durationChosen.length; j++){
+                    shareableLink+="duration="+encodeURIComponent(durationChosen[j])+"&";
+                }
             }
-            if(difficultyCatLivebox){
-                shareableLink+="difficulty="+encodeURIComponent(difficultyCatLivebox)+"&";
+            if(difficultyCatChosen){
+                for (let j=0; j<difficultyCatChosen.length; j++){
+                    shareableLink+="difficulty="+encodeURIComponent(difficultyCatChosen[j])+"&";
+                }
             }
-            if(difficultyCatLivebox){
-                shareableLink+="category="+encodeURIComponent(typeCatLivebox)+"&";
+            if(typeCatChosen){
+                for (let j=0; j<typeCatChosen.length; j++){
+                    shareableLink+="category="+encodeURIComponent(typeCatChosen[j])+"&";
+                }
             }
             if(excludeArtistbox === "exclude"){
                 shareableLink+="excludeartist="+encodeURIComponent(excludeArtistbox)+"&";
@@ -122,21 +131,9 @@ function UpdateSearch(){
 $(document).ready(function(e){
     /* Pulling the search parameters from the URL. If autosubmit is enabled in the URL,
        it will also initiate the search on page load */
-    let durationParam= document.getElementById("duration");
-    let difficultyParam= document.getElementById("difficultycat");
-    let typeParam= document.getElementById("typecat");
     let titleParam= document.getElementById("title");
     let artistParam= document.getElementById("artist");
     let excludeartistParam= document.getElementById("excludeartist")
-    if (urlParams.get("duration")){
-        durationParam.value = urlParams.get("duration");
-        }
-    if (urlParams.get("difficulty")){
-        difficultyParam.value = urlParams.get("difficulty");
-        }
-    if (urlParams.get("category")){
-        typeParam.value = urlParams.get("category");
-        }
     if (urlParams.get("title")){
         titleParam.value = urlParams.get("title");
         }
@@ -146,6 +143,9 @@ $(document).ready(function(e){
     if (urlParams.get("excludeartist")){
         excludeartistParam.checked = true;
         }
+    $(".chosen-select4").val(urlParams.getAll('difficulty')).trigger("chosen:updated");
+    $(".chosen-select3").val(urlParams.getAll('category')).trigger("chosen:updated");
+    $(".chosen-select2").val(urlParams.getAll('duration')).trigger("chosen:updated");
     $(".chosen-select").val(urlParams.getAll('instructor')).trigger("chosen:updated");
     if(urlParams.get("autosubmit")==="1") {
         setTimeout(function(){$("#submitBtn").click()},100);
