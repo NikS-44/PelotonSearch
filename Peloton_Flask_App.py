@@ -5,24 +5,15 @@ import os
 from re import search
 import json
 from unidecode import unidecode
-import mariadb
 
 app = Flask(__name__)
-
-sql_db_type = "MySQL"
-
-if sql_db_type == "MySQL":
-    app.config['MYSQL_HOST'] = 'localhost'
-    app.config['MYSQL_USER'] = 'root'
-    app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_Password')
-    app.config['MYSQL_DB'] = 'peloton'
-    app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-    app.config["MYSQL_AUTH_PLUGIN"] = "MYSQL_NATIVE_PASSWORD"
-    db = MySQL(app)
-
-if sql_db_type == "mariadb":
-    maria_password = os.getenv("MARIADB_PASS")
-    db = mariadb.connect(user="nik", password=maria_password, host="localhost", database="Peloton")
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_Password')
+app.config['MYSQL_DB'] = 'Peloton'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config["MYSQL_AUTH_PLUGIN"] = "MYSQL_NATIVE_PASSWORD"
+db = MySQL(app)
 
 def multi_sql_format(item_list, sql_category):
     if not item_list:
@@ -52,11 +43,7 @@ def pelotoncss():
 
 @app.route("/PelotonSearch", methods=["POST", "GET"])
 def PelotonSearch():
-
-    if sql_db_type == "MySQL":
-        cursor = db.connection.cursor()
-    if sql_db_type == "mariadb":
-        cursor = db.cursor(dictionary=True)
+    cursor = db.connection.cursor()
 
     # Get User Inputs from Page Forms
     title_box = request.form.get("title")
