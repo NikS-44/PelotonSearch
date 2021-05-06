@@ -7,13 +7,36 @@ import json
 from unidecode import unidecode
 
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_Password')
-app.config['MYSQL_DB'] = 'Peloton'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-app.config["MYSQL_AUTH_PLUGIN"] = "MYSQL_NATIVE_PASSWORD"
-db = MySQL(app)
+
+def initialize_settings(filename):
+    with open(filename, 'w') as settings_writer:
+        settings_writer.writelines('##Settings##\n'
+                                   'MYSQL_HOST: "localhost"\n'
+                                   'MYSQL_USER: "root"\n'
+                                   'MYSQL_PASSWORD: "password"\n'
+                                   'MYSQL_DB: "Peloton"\n'
+                                   'MYSQL_CURSORCLASS: "DictCursor"\n'
+                                   'MYSQL_AUTH_PLUGIN: ""MYSQL_NATIVE_PASSWORD"\n'
+                                   '##END##')
+def settings_reader(filename):
+    input_category_types = {}
+    categories_read = False
+    with open(filename, 'r') as f:
+        while True:
+            line_read = f.readline().strip()
+            if not line_read:
+                print("Done")
+                break
+            if line_read == "##Settings##":
+                categories_read = True
+                continue
+            if "##END##" in line_read and categories_read:
+                break
+            category_type = line_read.split(':')[0]
+            # Start from 2nd argument ('1') to the end of the file (blank), read every other argument to get the quoted match cases ('2')
+            category_match_case = line_read.split('"')[1]
+            input_category_types[category_type] = category_match_case
+    return input_category_types
 
 def multi_sql_format(item_list, sql_category):
     if not item_list:
@@ -72,7 +95,6 @@ def PelotonSearch():
     instructor_sql = multi_sql_format(instructor_list, "Instructor")
     duration_sql = multi_sql_format(duration_list, "Workout_Length")
 
-
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Double %% to escape the python % syntax
     query = (
@@ -111,8 +133,20 @@ def PelotonSearch():
 
 
 if __name__ == "__main__":
+    if not os.path.exists("Settings.txt"):
+        initialize_settings("Settings.txt")
+    # Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
+    # User will need to set up the SQL server config variables in the Settings.txt file that is created
+    settings = settings_reader("Settings.txt")
+    app.config['MYSQL_HOST'] = settings['MYSQL_HOST']
+    app.config['MYSQL_USER'] = settings['MYSQL_USER']
+    app.config['MYSQL_PASSWORD'] = settings['MYSQL_PASSWORD']
+    app.config['MYSQL_DB'] = settings['MYSQL_DB']
+    app.config['MYSQL_CURSORCLASS'] = settings['MYSQL_CURSORCLASS']
+    app.config['MYSQL_AUTH_PLUGIN'] = settings['MYSQL_AUTH_PLUGIN']
+    db = MySQL(app)
+
     # Access at http://127.0.0.1:5000/ - Will not available on local network
     # app.run()
-
     # Access at localhost:5000 or http://127.0.0.1:5000/ - Will also be available on local network
     app.run(host='0.0.0.0')
