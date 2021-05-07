@@ -8,6 +8,7 @@ from unidecode import unidecode
 
 app = Flask(__name__)
 
+
 def initialize_settings(filename):
     with open(filename, 'w') as settings_writer:
         settings_writer.writelines('##Settings##\n'
@@ -18,6 +19,8 @@ def initialize_settings(filename):
                                    'MYSQL_CURSORCLASS: "DictCursor"\n'
                                    'MYSQL_AUTH_PLUGIN: ""MYSQL_NATIVE_PASSWORD"\n'
                                    '##END##')
+
+
 def settings_reader(filename):
     input_category_types = {}
     categories_read = False
@@ -37,6 +40,7 @@ def settings_reader(filename):
             category_match_case = line_read.split('"')[1]
             input_category_types[category_type] = category_match_case
     return input_category_types
+
 
 def multi_sql_format(item_list, sql_category):
     if not item_list:

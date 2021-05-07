@@ -21,6 +21,39 @@ cycling_workout_types = {"7579b9edbdf9464fa19eb58193897a73": "Intervals",
                          "4228e9e57bf64c518d58a1d0181760c4": "Pro Cyclist"}
 
 
+def initialize_settings(filename):
+    with open(filename, 'w') as settings_writer:
+        settings_writer.writelines('##Settings##\n'
+                                   'MYSQL_HOST: "localhost"\n'
+                                   'MYSQL_USER: "root"\n'
+                                   'MYSQL_PASSWORD: "password"\n'
+                                   'MYSQL_DB: "Peloton"\n'
+                                   'MYSQL_CURSORCLASS: "DictCursor"\n'
+                                   'MYSQL_AUTH_PLUGIN: ""MYSQL_NATIVE_PASSWORD"\n'
+                                   '##END##')
+
+
+def settings_reader(filename):
+    input_category_types = {}
+    categories_read = False
+    with open(filename, 'r') as f:
+        while True:
+            line_read = f.readline().strip()
+            if not line_read:
+                print("Done")
+                break
+            if line_read == "##Settings##":
+                categories_read = True
+                continue
+            if "##END##" in line_read and categories_read:
+                break
+            category_type = line_read.split(':')[0]
+            # Start from 2nd argument ('1') to the end of the file (blank), read every other argument to get the quoted match cases ('2')
+            category_match_case = line_read.split('"')[1]
+            input_category_types[category_type] = category_match_case
+    return input_category_types
+
+
 class CyclingWorkout:
     def __init__(self, latest_workout_json):
         self.workout_id = latest_workout_json['id']
@@ -134,26 +167,26 @@ class CyclingWorkout:
             sql_cursor.execute(query, (self.peloton_difficulty_rating, self.user_rating, self.workout_id))
 
 
-def mysql_database_initialization(username, password):
+def mysql_database_initialization(mysql_settings):
     try:
         with connect(
-                host="localhost",
-                user=username,
-                passwd=password
+                host=mysql_settings['MYSQL_HOST'],
+                user=mysql_settings['MYSQL_USER'],
+                passwd=mysql_settings['MYSQL_PASSWORD']
         ) as db_init:
             db_init_cursor = db_init.cursor()
-            db_init_cursor.execute("""CREATE DATABASE IF NOT EXISTS Peloton""")
+            db_init_cursor.execute(f"""CREATE DATABASE IF NOT EXISTS {mysql_settings['MYSQL_DB']}""")
     except Error as e:
         print(e)
 
 
-def mysql_cycling_record_table_create(username, password):
+def mysql_cycling_record_table_create(mysql_settings):
     try:
         with connect(
-                host="localhost",
-                user=username,
-                passwd=password,
-                database="Peloton"
+                host=mysql_settings['MYSQL_HOST'],
+                user=mysql_settings['MYSQL_USER'],
+                passwd=mysql_settings['MYSQL_PASSWORD'],
+                database=mysql_settings['MYSQL_DB']
         ) as db:
             sql_cursor = db.cursor()
             sql_cursor.execute("""CREATE TABLE IF NOT EXISTS Cycling_Records(
@@ -188,11 +221,12 @@ def get_multiple_class_json_data(web_cookies, web_headers, web_workout_request_l
 
 
 if __name__ == "__main__":
-    MYSQL_username = "root"
-    MYSQL_password = os.getenv('MYSQL_Password')
+    if not os.path.exists("Settings.txt"):
+        initialize_settings("Settings.txt")
+    sql_cfg_settings = settings_reader("Settings.txt")
     # Create database and/or table if it does not exist yet
-    mysql_database_initialization(MYSQL_username, MYSQL_password)
-    mysql_cycling_record_table_create(MYSQL_username, MYSQL_password)
+    mysql_database_initialization(sql_cfg_settings)
+    mysql_cycling_record_table_create(sql_cfg_settings)
     # Change workout request limit to set the number of classes to fetch details on
     workout_request_limit = 9000
     # My peloton_session_id cookie is stored in the OS system environment variables
@@ -203,10 +237,10 @@ if __name__ == "__main__":
     # Opening the db connection once rather than for every record update sped up the program 10x
     try:
         with connect(
-                host="localhost",
-                user=MYSQL_username,
-                passwd=MYSQL_password,
-                database="Peloton"
+                host=sql_cfg_settings['MYSQL_HOST'],
+                user=sql_cfg_settings['MYSQL_USER'],
+                passwd=sql_cfg_settings['MYSQL_PASSWORD'],
+                database=sql_cfg_settings['MYSQL_DB']
         ) as database_conn:
             for workout in class_data['data']:
                 workout_instance = CyclingWorkout(workout)
