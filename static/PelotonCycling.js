@@ -47,13 +47,11 @@ function UpdateSearch(){
                 if (value.Difficulty_Category === "Very Hard"){
                     diffParsed = "VeryHard"
                 }
-                if (value.Difficulty_Category === "Power Zone")
-                {
+                if (value.Difficulty_Category === "Power Zone"){
                    data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                    "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
-                else
-                {
+                else{
                    data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                    "</h3><h3>"+value.Instructor+ "    ·   <b class=" +diffParsed+ " >▊"+ value.Difficulty_Category +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
                    "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
@@ -133,13 +131,13 @@ $(document).ready(function(e){
     let excludeartistParam= document.getElementById("excludeartist")
     if (urlParams.get("title")){
         titleParam.value = urlParams.get("title");
-        }
+    }
     if (urlParams.get("artist")){
         artistParam.value = urlParams.get("artist");
-        }
+    }
     if (urlParams.get("excludeartist")){
         excludeartistParam.checked = true;
-        }
+    }
     $(".chosen-select4").val(urlParams.getAll('difficulty')).trigger("chosen:updated");
     $(".chosen-select3").val(urlParams.getAll('category')).trigger("chosen:updated");
     $(".chosen-select2").val(urlParams.getAll('duration')).trigger("chosen:updated");
