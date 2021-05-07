@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pelly Search</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" />
     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/pelotonstyle.css') }}">
 
@@ -65,8 +64,6 @@
         </div>
         <div>Instructors:</div>
         <div class="textbox">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
         <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
             <select data-placeholder="Choose Instructors..." multiple class="chosen-select" name="instructorlist" id="instructorlist" style="width:325px;">
               <option value="Matt Wilpers">Matt Wilpers</option>
@@ -100,6 +97,8 @@
     <br><div class="linkBox" style="margin: auto;"><input type="button" value="Copy Search Url" onclick="Copy();"/><br><textarea id="sharelink" rows="2" cols="40"></textarea></div>
 
 	<p id ="datalist" class="small"></p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <script src="{{url_for('static', filename='PelotonCycling.js')}}"></script>
 </body>
 </html>
