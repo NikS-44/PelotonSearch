@@ -9,8 +9,6 @@ $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
-//$(".chosen-results").css('font-size','20px');
-
 
 let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
