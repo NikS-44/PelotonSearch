@@ -147,7 +147,7 @@ $(document).ready(function(e){
     $(".chosen-select3").val(urlParams.getAll('category')).trigger("chosen:updated");
     $(".chosen-select2").val(urlParams.getAll('duration')).trigger("chosen:updated");
     $(".chosen-select").val(urlParams.getAll('instructor')).trigger("chosen:updated");
-    if(urlParams.get("autosubmit")==="1") {
+    if(urlParams.get("autosubmit")!=="0") {
         setTimeout(function(){$("#submitBtn").click()},100);
     }
 
