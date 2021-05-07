@@ -5,5 +5,4 @@ A local MYSQL server is required and the root password will also need to be load
 Run the "PelotonCyclingScraper.py" to build the database. A 1 second timer was added between each Class API call to prevent a very high request rate, but that can be removed if desired. You can modify the limit in the 'url' variable to request a larger number of classes to build the database. A local copy of all the classes is currently downloaded for quick database rebuilds, but if a smaller local footprint is required, that function isn't necessary. 
 
 Once the MYSQL database is built and running, you can run the Peloton_Flask_App.py to serve the search page at localhost:5000. 
-
-                                                                ![](PelotonSearchScreenCap.gif)
+![](PelotonSearchScreenCap.gif)
