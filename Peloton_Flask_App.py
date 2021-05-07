@@ -74,14 +74,14 @@ def PelotonSearch():
 
     # Get User Inputs from Page Forms
     title_box = request.form.get("title")
-    difficulty_list = request.form.getlist("difficultycatchosen[]")
-    instructor_list = request.form.getlist("instructorchosen[]")
-    duration_list = request.form.getlist("durationchosen[]")
-    category_list = request.form.getlist("typecatchosen[]")
+    difficulty_list = request.form.getlist("difficulty_cat_chosen[]")
+    instructor_list = request.form.getlist("instructor_chosen[]")
+    duration_list = request.form.getlist("duration_chosen[]")
+    category_list = request.form.getlist("type_cat_chosen[]")
     artist_box = request.form.get("artist")
-    exclude_artist_box = request.form.get("excludeartist")
+    exclude_artist_box = request.form.get("exclude_artist")
     duration = request.form.get("duration")
-    search_index = request.form.get("searchindex")
+    search_index = request.form.get("search_index")
     # In this crappy implementation, I am not filtering artists in SQL because it seemed complicated to filter the
     # artists somehow using a JSON search inside of an SQL query. For now, if you do a artist search, I am not
     # limiting the results

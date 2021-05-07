@@ -27,7 +27,7 @@ function UpdateSearch(){
     let difficultyCatChosen = $("#multdifficultycat").val();
     let typeCatChosen = $("#multtypecat").chosen().val();
     let durationChosen = $("#multDuration").chosen().val();
-    let chosenLivebox = $("#instructorlist").chosen().val();
+    let instructorChosen = $("#instructorlist").chosen().val();
     let excludeArtistbox = "";
     if ($("#excludeartist").is(":checked")){
         excludeArtistbox = "exclude";
@@ -51,7 +51,7 @@ function UpdateSearch(){
     $.ajax({
         method:"POST",
         url:"/PelotonSearch",
-        data:{title:titleLivebox, difficultycatchosen:difficultyCatChosen, durationchosen:durationChosen, instructorchosen:chosenLivebox, typecatchosen:typeCatChosen, artist:artistLivebox, excludeartist:excludeArtistbox, searchindex:searchIndex},
+        data:{title:titleLivebox, difficulty_cat_chosen:difficultyCatChosen, duration_chosen:durationChosen, instructor_chosen:instructorChosen, type_cat_chosen:typeCatChosen, artist:artistLivebox, exclude_artist:excludeArtistbox, search_index:searchIndex},
         success:function(res){
             //console.log(res);
             let stopSearch = data;
@@ -117,9 +117,9 @@ function UpdateSearch(){
             if(excludeArtistbox === "exclude"){
                 shareableLink+="excludeartist="+encodeURIComponent(excludeArtistbox)+"&";
             }
-            if(chosenLivebox){
-                for (let j=0; j<chosenLivebox.length; j++){
-                    shareableLink+="instructor="+encodeURIComponent(chosenLivebox[j])+"&";
+            if(instructorChosen){
+                for (let j=0; j<instructorChosen.length; j++){
+                    shareableLink+="instructor="+encodeURIComponent(instructorChosen[j])+"&";
                 }
             }
             shareableLink+="autosubmit=1"
