@@ -63,12 +63,12 @@ function UpdateSearch(){
                 }
                 if (value.Difficulty_Category === "Power Zone")
                 {
-                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=240 width=360></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                    "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
                 else
                 {
-                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=240 width=360></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
                    "</h3><h3>"+value.Instructor+ "    ·   <b class=" +diffParsed+ " >▊"+ value.Difficulty_Category +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
                    "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
