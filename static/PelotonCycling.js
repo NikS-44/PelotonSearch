@@ -5,20 +5,6 @@ function Copy() {
   document.execCommand("copy");
 }
 
-$(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
-
-let queryString = window.location.search;
-let urlParams = new URLSearchParams(queryString);
-let currentLocation = window.location.protocol+"//"+window.location.host;
-let searched = false;
-let searchIndex = 0;
-let data = "";
-let scrollReady = true;
-
-
 function UpdateSearch(){
     let titleLivebox = $("#title").val();
     let artistLivebox = $("#artist").val();
@@ -97,17 +83,17 @@ function UpdateSearch(){
             if(artistLivebox){
                 shareableLink+="artist="+encodeURIComponent(artistLivebox)+"&";
             }
-            if(durationChosen){
+            if(durationChosen && durationChosen.length){
                 for (let j=0; j<durationChosen.length; j++){
                     shareableLink+="duration="+encodeURIComponent(durationChosen[j])+"&";
                 }
             }
-            if(difficultyCatChosen){
+            if(difficultyCatChosen && difficultyCatChosen.length){
                 for (let j=0; j<difficultyCatChosen.length; j++){
                     shareableLink+="difficulty="+encodeURIComponent(difficultyCatChosen[j])+"&";
                 }
             }
-            if(typeCatChosen){
+            if(typeCatChosen && typeCatChosen.length){
                 for (let j=0; j<typeCatChosen.length; j++){
                     shareableLink+="category="+encodeURIComponent(typeCatChosen[j])+"&";
                 }
@@ -115,7 +101,7 @@ function UpdateSearch(){
             if(excludeArtistbox === "exclude"){
                 shareableLink+="excludeartist="+encodeURIComponent(excludeArtistbox)+"&";
             }
-            if(instructorChosen){
+            if(instructorChosen && instructorChosen.length){
                 for (let j=0; j<instructorChosen.length; j++){
                     shareableLink+="instructor="+encodeURIComponent(instructorChosen[j])+"&";
                 }
@@ -125,6 +111,19 @@ function UpdateSearch(){
         }
     })
 }
+
+$(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+$(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
+$(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
+$(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
+
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let currentLocation = window.location.protocol+"//"+window.location.host;
+let searched = false;
+let searchIndex = 0;
+let data = "";
+let scrollReady = true;
 
 $(document).ready(function(e){
     /* Pulling the search parameters from the URL. If autosubmit is enabled in the URL,
@@ -149,7 +148,8 @@ $(document).ready(function(e){
         setTimeout(function(){$("#submitBtn").click()},100);
     }
 
-    /* Loads 10 new records if the user scrolls to the end of page.*/
+    /* Loads 10 new records if the user scrolls to the end of page. This not currently working perfectly.
+       I need to fix it so that the the end of page scrolling isn't recorded multiple times by the event listener */
     $(window).scroll(function() {
         var nearToBottom = 110;
         if (($(window).scrollTop() + $(window).height() > $(document).height() - nearToBottom) && searched && scrollReady) {
