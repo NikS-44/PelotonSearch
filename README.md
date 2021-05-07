@@ -1,6 +1,6 @@
 This application runs using the Peloton API in conjunction with a user-specific Peloton Session ID cookie. You will need to add the Peloton Session ID Cookie to the code directly or to a user-set environment variable (peloton_session_id). 
 
-A local MYSQL server is required and the MYSQL credentials/information is loaded through a Settings.txt file that is auto-generated on the first execution of the Scraper or Flask App. 
+A local MYSQL or mariadb server is required and the MYSQL credentials are loaded through a Settings.txt file that is auto-generated on the first execution of the Scraper or Flask App. 
 
 Run the "PelotonCyclingScraper.py" to build the database. A 1 second timer was added between each Class API call to prevent a very high request rate, but that can be removed if desired. You can modify the limit in the 'url' variable to request a larger number of classes to build the database. A local copy of all the classes is currently downloaded for quick database rebuilds, but if a smaller local footprint is required, that function isn't necessary. 
 
