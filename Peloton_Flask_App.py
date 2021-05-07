@@ -80,7 +80,6 @@ def PelotonSearch():
     category_list = request.form.getlist("type_cat_chosen[]")
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("exclude_artist")
-    duration = request.form.get("duration")
     search_index = request.form.get("search_index")
     # In this crappy implementation, I am not filtering artists in SQL because it seemed complicated to filter the
     # artists somehow using a JSON search inside of an SQL query. For now, if you do a artist search, I am not
