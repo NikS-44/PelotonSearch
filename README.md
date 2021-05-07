@@ -6,4 +6,4 @@ Run the "PelotonCyclingScraper.py" to build the database. A 1 second timer was a
 
 Once the MYSQL database is built and running, you can run the Peloton_Flask_App.py to serve the search page at localhost:5000. 
 
-![](PelotonSearchScreenCap.gif)
+                                                                ![](PelotonSearchScreenCap.gif)
