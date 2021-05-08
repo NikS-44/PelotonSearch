@@ -25,15 +25,6 @@ function UpdateSearch(){
         excludeArtistbox = "include";
     }
 
-    /* Fix Me * - Current solution for artists search since my logic doesn't allow dynamic loading if you do a song artist
-    search since it filters the results after the SQL query. Need to figure out a way to search the song JSON in
-    the SQL query so I don't have to do this */
-    if (artistLivebox){
-        scrollEnabled = false;
-    }
-    else{
-        scrollEnabled = true;
-    }
     $.ajax({
         method:"POST",
         url:"/PelotonSearch",
@@ -160,6 +151,7 @@ $(document).ready(function(e){
         data = "";
         searchIndex = 0;
         currentScrollHeight = 0;
+        scrollEnabled = true;
         UpdateSearch();
    });
 })

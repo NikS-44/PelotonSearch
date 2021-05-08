@@ -46,16 +46,48 @@ def multi_sql_format(item_list, sql_category):
     if not item_list:
         item_sql = ""
     else:
-        item_sql = f"and {sql_category} IN ("
-        first = 1
+        item_sql = f"AND {sql_category} IN ("
+        first = True
         for item in item_list:
             if first:
                 item_sql += '"' + item + '"'
-                first = 0
+                first = False
             else:
                 item_sql += ', "' + item + '"'
         item_sql += ")"
     return item_sql
+
+
+def json_search_sql_format(json_search_item_list, sql_category, exclude):
+    json_search_item_sql = ""
+    if not json_search_item_list:
+        return json_search_item_sql
+    else:
+        if exclude:
+            first = True
+            for json_search_item in json_search_item_list:
+                # Remove case sensitivity
+                json_search_item_lower = json_search_item.lower()
+                if first:
+                    # Double %% to escape the python % parameter syntax
+                    json_search_item_sql += f"AND (JSON_SEARCH(LOWER({sql_category}),'one', '%%{json_search_item_lower}%%') IS NULL "
+                    first = False
+                else:
+                    json_search_item_sql += f"AND JSON_SEARCH(LOWER({sql_category}),'one', '%%{json_search_item_lower}%%') IS NULL "
+            json_search_item_sql += ")"
+        else:
+            first = True
+            for json_search_item in json_search_item_list:
+                # Remove case sensitivity
+                json_search_item_lower = json_search_item.lower()
+                if first:
+                    # Double %% to escape the python % parameter syntax
+                    json_search_item_sql += f"AND (JSON_SEARCH(LOWER({sql_category}),'one', '%%{json_search_item_lower}%%') IS NOT NULL "
+                    first = False
+                else:
+                    json_search_item_sql += f"OR JSON_SEARCH(LOWER({sql_category}),'one', '%%{json_search_item_lower}%%') IS NOT NULL "
+            json_search_item_sql += ")"
+    return json_search_item_sql
 
 
 @app.route('/')
@@ -81,15 +113,15 @@ def PelotonSearch():
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("exclude_artist")
     search_index = request.form.get("search_index")
-    # FIX ME
-    # In this implementation, I am not filtering artists in SQL because I need a way to filter artists somehow
-    # using a JSON search inside of an SQL query.
-    #
-    # For now, if you do an artist search, I am not doing dynamic page loading, rather I query the whole database
-    # based on the other search inputs and filter artists in python
-    result_limit = 10
+
+    # Future Feature - Multi-input custom song/artist filters
+    # Comma seperated input parsing could work
+    artist_list = []
     if artist_box:
-        result_limit = 100000
+        artist_list.append(artist_box)
+
+    result_limit = 10
+
     # Check the state of the Exclude Artist Checkbox
     if exclude_artist_box == "exclude":
         exclude_artist = True
@@ -101,41 +133,22 @@ def PelotonSearch():
     instructor_sql = multi_sql_format(instructor_list, "Instructor")
     duration_sql = multi_sql_format(duration_list, "Workout_Length")
 
+    # For now, if you do an artist search, it is too character sensitive. Need to strip special ascii characters
+    # from the database so that I can search for Beyonce instead of Beyoncé
+    song_artist_sql = json_search_sql_format(artist_list, "Songs", exclude_artist)
+
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
-    # Double %% to escape the python % syntax
+    # Need to add further SQL Injection prevention for all parameters that could be injected
     query = (
-        f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} {difficulty_sql} """
-        f"""{duration_sql} {category_sql} order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
+        f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
+        f"""{duration_sql} {category_sql}  order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
     )
+
     param = '%{}%'.format(title_box)
     cursor.execute(query, (param,))
     results = cursor.fetchall()
-    filtered_results = []
-    if artist_box:
-        for result in results:
-            artist_results = json.loads(result['Songs'])
-            if exclude_artist:
-                add_entry = True
-            else:
-                add_entry = False
-            for artist_entry in artist_results:
-                if exclude_artist:
-                    # Added unidecode argument to match Artists with non-standard ascii characters such as Tiësto and Beyoncé
-                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(
-                            artist_entry['Artist']), re.IGNORECASE):
-                        add_entry = False
-                        break
-                else:
-                    if search(artist_box, artist_entry['Artist'], re.IGNORECASE) or search(artist_box, unidecode(
-                            artist_entry['Artist']), re.IGNORECASE):
-                        add_entry = True
-                        break
-            if add_entry:
-                filtered_results.append(result)
-    else:
-        filtered_results = results
     cursor.close()
-    return jsonify(filtered_results)
+    return jsonify(results)
 
 
 if __name__ == "__main__":
