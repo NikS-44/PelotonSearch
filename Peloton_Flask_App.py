@@ -1,10 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
-import re
 import os
-from re import search
-import json
-from unidecode import unidecode
 
 app = Flask(__name__)
 
