@@ -81,9 +81,12 @@ def PelotonSearch():
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("exclude_artist")
     search_index = request.form.get("search_index")
-    # In this crappy implementation, I am not filtering artists in SQL because it seemed complicated to filter the
-    # artists somehow using a JSON search inside of an SQL query. For now, if you do a artist search, I am not
-    # limiting the results
+    # FIX ME
+    # In this implementation, I am not filtering artists in SQL because I need a way to filter artists somehow
+    # using a JSON search inside of an SQL query.
+    #
+    # For now, if you do an artist search, I am not doing dynamic page loading, rather I query the whole database
+    # based on the other search inputs and filter artists in python
     result_limit = 10
     if artist_box:
         result_limit = 100000

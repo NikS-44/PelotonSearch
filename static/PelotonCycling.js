@@ -25,9 +25,9 @@ function UpdateSearch(){
         excludeArtistbox = "include";
     }
 
-    /* Current hacky solution for artists search since my logic doesn't allow dynamic loading if you do a song artist
+    /* Fix Me * - Current solution for artists search since my logic doesn't allow dynamic loading if you do a song artist
     search since it filters the results after the SQL query. Need to figure out a way to search the song JSON in
-    the SQL query so I don't have to do this junk*/
+    the SQL query so I don't have to do this */
     if (artistLivebox){
         scrollEnabled = false;
     }
