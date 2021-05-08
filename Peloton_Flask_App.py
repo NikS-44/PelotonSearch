@@ -114,8 +114,8 @@ def PelotonSearch():
     exclude_artist_box = request.form.get("exclude_artist")
     search_index = request.form.get("search_index")
 
-    # Future Feature - Multi-input custom song/artist filters
-    # Comma seperated input parsing could work
+    # Future Feature- Multi-input custom song/artist filters
+    # Comma seperated input parsing could work for getting multi custom inputs from the website
     artist_list = []
     if artist_box:
         artist_list.append(artist_box)
@@ -132,9 +132,6 @@ def PelotonSearch():
     category_sql = multi_sql_format(category_list, "Workout_Type")
     instructor_sql = multi_sql_format(instructor_list, "Instructor")
     duration_sql = multi_sql_format(duration_list, "Workout_Length")
-
-    # For now, if you do an artist search, it is too character sensitive. Need to strip special ascii characters
-    # from the database so that I can search for Beyonce instead of Beyoncé
     song_artist_sql = json_search_sql_format(artist_list, "Songs", exclude_artist)
 
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
