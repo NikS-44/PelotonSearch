@@ -7,6 +7,7 @@ import os
 import mysql.connector
 from mysql.connector import connect, Error
 from datetime import datetime
+from unidecode import unidecode
 
 cycling_workout_types = {"7579b9edbdf9464fa19eb58193897a73": "Intervals",
                          "59a49f882ea9475faa3110d50a8fb3f3": "Low Impact",
@@ -97,8 +98,8 @@ class CyclingWorkout:
         song_array = []
         artist_array = []
         for song in songs:
-            song_title = song['title']
-            song_artist = song['artists'][0]['artist_name']
+            song_title = unidecode(song['title'])
+            song_artist = unidecode(song['artists'][0]['artist_name'])
             song_array.append(song_title)
             artist_array.append(song_artist)
         self.songs_json = json.dumps([{"Artist": a, "Song": s} for a, s in zip(artist_array, song_array)])
