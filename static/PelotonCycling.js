@@ -1,4 +1,8 @@
 
+let searchIndex = 0;
+let data = "";
+let scrollEnabled = false;
+
 function Copy() {
   let Url = document.getElementById("sharelink");
   Url.select();
@@ -20,18 +24,15 @@ function UpdateSearch(){
         excludeArtistbox = "include";
     }
 
-    /* Current hacky solution for artists search since the artist filtering is happening outside of the SQL query.
-    Doesn't allow dynamic loading if you do a song artist search since it already requests all the records with no limit.
-    Need to figure out a way to search the song JSON in the SQL query so I don't have to do this junk*/
+    /* Current hacky solution for artists search since my logic doesn't allow dynamic loading if you do a song artist
+    search since it filters the results after the SQL query. Need to figure out a way to search the song JSON in
+    the SQL query so I don't have to do this junk*/
     if (artistLivebox){
-        scrollReady = false;
+        scrollEnabled = false;
     }
     else{
-        scrollReady = true;
+        scrollEnabled = true;
     }
-    searched = true;
-
-
     $.ajax({
         method:"POST",
         url:"/PelotonSearch",
@@ -70,11 +71,11 @@ function UpdateSearch(){
             });
             $("#datalist").html(data);
             if (stopSearch === data){
-                searched = false;
+                scrollEnabled = false;
             }
 
             /* Create Saved Search Link based on current search parameters*/
-            let shareableLink=currentLocation+"/?";
+            let shareableLink=window.location.protocol+"//"+window.location.host;+"/?";
             if(titleLivebox){
                 shareableLink+="title="+encodeURIComponent(titleLivebox)+"&";
             }
@@ -115,15 +116,11 @@ $(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
 
-let queryString = window.location.search;
-let urlParams = new URLSearchParams(queryString);
-let currentLocation = window.location.protocol+"//"+window.location.host;
-let searched = false;
-let searchIndex = 0;
-let data = "";
-let scrollReady = true;
+
+let currentScrollHeight = 0;
 
 $(document).ready(function(e){
+    let urlParams = new URLSearchParams(window.location.search);
     /* Pulling the search parameters from the URL. If autosubmit is enabled in the URL,
        it will also initiate the search on page load */
     let titleParam= document.getElementById("title");
@@ -146,24 +143,24 @@ $(document).ready(function(e){
         setTimeout(function(){$("#submitBtn").click()},100);
     }
 
-    /* Loads 10 new records if the user scrolls to the end of page. This not currently working perfectly.
-       I need to fix it so that the the end of page scrolling isn't recorded multiple times by the event listener */
-    $(window).scroll(function() {
-        var nearToBottom = 110;
-        if (($(window).scrollTop() + $(window).height() > $(document).height() - nearToBottom) && searched && scrollReady) {
-            scrollReady = false;
+    /* Loads 10 new records if the user scrolls to the end of page */
+    $(window).on("scroll", () => {
+        let scrollHeight = $(document).height();
+        let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
+        let isBottom = scrollHeight - 300 < scrollPos;
+        if (isBottom && currentScrollHeight < scrollHeight && scrollEnabled){
             searchIndex += 10;
-            setTimeout(function(){
-                UpdateSearch();
-                scrollReady= true;
-            },100);
+            UpdateSearch();
+            currentScrollHeight = scrollHeight;
         }
+
     });
 
    /* New search done when user or JS clicks Submit button*/
    $("#submitBtn").on("click",function(e){
         data = "";
         searchIndex = 0;
+        currentScrollHeight = 0;
         UpdateSearch();
    });
 })
