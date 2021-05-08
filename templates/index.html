@@ -35,15 +35,15 @@
         <div>Category:</div>
         <div class="textbox">
         <select data-placeholder="Choose Category" multiple class="chosen-select3" name="multtypecat" id="multtypecat" style="width:325px;">
-              <option value="Intervals">Intervals</option>
-              <option value="Low Impact">Low Impact</option>
-              <option value="Climb">Climb</option>
               <option value="Power Zone">Power Zone</option>
-              <option value="Heart Rate Zone">Heart Rate Zone</option>
-              <option value="Theme">Theme</option>
+              <option value="Intervals">Intervals</option>
               <option value="Music">Music</option>
-              <option value="Groove">Groove</option>
+              <option value="Low Impact">Low Impact</option>
+              <option value="Theme">Theme</option>
+              <option value="Climb">Climb</option>
+              <option value="Heart Rate Zone">Heart Rate Zone</option>
               <option value="Beginner">Beginner</option>
+              <option value="Groove">Groove</option>
               <option value="Pro Cyclist">Pro Cyclist</option>
               <option value="Live DJ">Live DJ</option>
         </select>
@@ -75,7 +75,8 @@
               <option value="Cody Rigsby">Cody Rigsby</option>
               <option value="Bradley Rose">Bradley Rose</option>
               <option value="Ally Love">Ally Love</option>
-              <option value="Christine D'Ercole">Christine D'Ercole</option>
+              <option value="Olivia Amato">Olivia Amato</option>
+              <option value="Robin Arzon">Robin Arzon</option>
               <option value="Jenn Sherman">Jenn Sherman</option>
               <option value="Denis Morton">Denis Morton</option>
               <option value="Emma Lovewell">Emma Lovewell</option>
@@ -85,8 +86,7 @@
               <option value="Jess King">Jess King</option>
               <option value="Kendall Toole">Kendall Toole</option>
               <option value="Leanne Hainsby">Leanne Hainsby</option>
-              <option value="Olivia Amato">Olivia Amato</option>
-              <option value="Robin Arzon">Robin Arzon</option>
+              <option value="Christine D'Ercole">Christine D'Ercole</option>
               <option value="Christian Vande Velde">Christian Vande Velde</option>
             </select>
         </div>
@@ -97,6 +97,7 @@
     <br><div class="linkBox" style="margin: auto;"><input type="button" value="Copy Search Url" onclick="Copy();"/><br><textarea id="sharelink" rows="2" cols="40"></textarea></div>
 
 	<p id ="datalist" class="small"></p>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <script src="{{url_for('static', filename='PelotonCycling.js')}}"></script>
