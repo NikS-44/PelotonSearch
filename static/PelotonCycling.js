@@ -2,6 +2,7 @@
 let searchIndex = 0;
 let data = "";
 let scrollEnabled = false;
+let currentScrollHeight = 0;
 
 function Copy() {
   let Url = document.getElementById("sharelink");
@@ -116,8 +117,6 @@ $(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
 $(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
 
-
-let currentScrollHeight = 0;
 
 $(document).ready(function(e){
     let urlParams = new URLSearchParams(window.location.search);
