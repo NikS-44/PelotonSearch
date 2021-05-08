@@ -1,10 +1,8 @@
 import requests
-import re
 import datetime
 import time
 import json
 import os
-import mysql.connector
 from mysql.connector import connect, Error
 from datetime import datetime
 from unidecode import unidecode
