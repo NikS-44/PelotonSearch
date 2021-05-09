@@ -133,7 +133,7 @@ $(document).ready(function(e){
         setTimeout(function(){$("#submitBtn").click()},100);
     }
 
-    /* Loads 10 new records if the user scrolls to the end of page */
+    /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached*/
     $(window).on("scroll", () => {
         let scrollHeight = $(document).height();
         let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
@@ -143,10 +143,9 @@ $(document).ready(function(e){
             UpdateSearch();
             currentScrollHeight = scrollHeight;
         }
-
     });
 
-   /* New search done when user or JS clicks Submit button*/
+   /* New Search query when user or other JS code clicks Submit button*/
    $("#submitBtn").on("click",function(e){
         data = "";
         searchIndex = 0;
