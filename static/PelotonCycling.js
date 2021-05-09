@@ -79,7 +79,7 @@ function UpdateSearch(){
             }
 
             /* Create Saved Search Link based on current search parameters*/
-            let shareableLink=window.location.protocol+"//"+window.location.host;+"//?";
+            let shareableLink=window.location.protocol+"//"+window.location.host+"/?";
             if(titleLivebox){
                 shareableLink+="title="+encodeURIComponent(titleLivebox)+"&";
             }
