@@ -112,3 +112,7 @@ h2{
 .textbox{
     text-align:center;
 }
+.testgrid{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+}

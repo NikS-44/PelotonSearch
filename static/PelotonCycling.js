@@ -3,6 +3,7 @@ let searchIndex = 0;
 let data = "";
 let scrollEnabled = false;
 let currentScrollHeight = 0;
+let grid = 0;
 
 function Copy() {
   let Url = document.getElementById("sharelink");
@@ -33,6 +34,10 @@ function UpdateSearch(){
             //console.log(res);
             let stopSearch = data;
             $.each(res,function(index,value){
+                /* Future Grid View
+                if (grid%3 === 0){
+                    data+= "<div class=testgrid>";
+                }*/
                 let diffParsed = value.Difficulty_Category;
                 if (value.Difficulty_Category === "Very Easy"){
                     diffParsed = "VeryEasy"
@@ -60,6 +65,13 @@ function UpdateSearch(){
                     }
                 }
                 data+="</h4></div></a><br>";
+                /*Future Grid View
+                data+="</h4></div></a>";
+                grid++;
+                if (grid%3 === 0){
+                    data+= "</div>";
+                }*/
+
             });
             $("#datalist").html(data);
             if (stopSearch === data){
@@ -67,7 +79,7 @@ function UpdateSearch(){
             }
 
             /* Create Saved Search Link based on current search parameters*/
-            let shareableLink=window.location.protocol+"//"+window.location.host;+"/?";
+            let shareableLink=window.location.protocol+"//"+window.location.host;+"//?";
             if(titleLivebox){
                 shareableLink+="title="+encodeURIComponent(titleLivebox)+"&";
             }
