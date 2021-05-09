@@ -13,7 +13,8 @@ def initialize_settings(filename):
                                    'MYSQL_PASSWORD: "password"\n'
                                    'MYSQL_DB: "Peloton"\n'
                                    'MYSQL_CURSORCLASS: "DictCursor"\n'
-                                   'MYSQL_AUTH_PLUGIN: ""MYSQL_NATIVE_PASSWORD"\n'
+                                   'MYSQL_AUTH_PLUGIN: "MYSQL_NATIVE_PASSWORD"\n'
+                                   'peloton_session_id: "1234567812345678deadbeefdeadbeef" \n'
                                    '##END##')
 
 
@@ -147,6 +148,8 @@ def PelotonSearch():
 if __name__ == "__main__":
     if not os.path.exists("Settings.txt"):
         initialize_settings("Settings.txt")
+        print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
+        exit()
     # Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
     # User will need to set up the SQL server config variables in the Settings.txt file that is created
     settings = settings_reader("Settings.txt")

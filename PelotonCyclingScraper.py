@@ -28,7 +28,8 @@ def initialize_settings(filename):
                                    'MYSQL_PASSWORD: "password"\n'
                                    'MYSQL_DB: "Peloton"\n'
                                    'MYSQL_CURSORCLASS: "DictCursor"\n'
-                                   'MYSQL_AUTH_PLUGIN: ""MYSQL_NATIVE_PASSWORD"\n'
+                                   'MYSQL_AUTH_PLUGIN: "MYSQL_NATIVE_PASSWORD"\n'
+                                   'peloton_session_id: "1234567812345678deadbeefdeadbeef" \n'
                                    '##END##')
 
 
@@ -222,24 +223,26 @@ def get_multiple_class_json_data(web_cookies, web_headers, web_workout_request_l
 if __name__ == "__main__":
     if not os.path.exists("Settings.txt"):
         initialize_settings("Settings.txt")
-    sql_cfg_settings = settings_reader("Settings.txt")
+        print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
+        exit()
+    cfg_settings = settings_reader("Settings.txt")
     # Create database and/or table if it does not exist yet
-    mysql_database_initialization(sql_cfg_settings)
-    mysql_cycling_record_table_create(sql_cfg_settings)
+    mysql_database_initialization(cfg_settings)
+    mysql_cycling_record_table_create(cfg_settings)
     # Change workout request limit to set the number of classes to fetch details on
     workout_request_limit = 9000
     # My peloton_session_id cookie is stored in the OS system environment variables
-    cookies = {'peloton_session_id': os.getenv('peloton_session_id')}
+    cookies = {'peloton_session_id': cfg_settings['peloton_session_id']}
     headers = {'peloton-platform': 'web'}
     class_data = get_multiple_class_json_data(cookies, headers, workout_request_limit)
     # Walk through individual class records and add or update class records
     # Opening the db connection once rather than for every record update sped up the program 10x
     try:
         with connect(
-                host=sql_cfg_settings['MYSQL_HOST'],
-                user=sql_cfg_settings['MYSQL_USER'],
-                passwd=sql_cfg_settings['MYSQL_PASSWORD'],
-                database=sql_cfg_settings['MYSQL_DB']
+                host=cfg_settings['MYSQL_HOST'],
+                user=cfg_settings['MYSQL_USER'],
+                passwd=cfg_settings['MYSQL_PASSWORD'],
+                database=cfg_settings['MYSQL_DB']
         ) as database_conn:
             for workout in class_data['data']:
                 workout_instance = CyclingWorkout(workout)
