@@ -1,10 +1,10 @@
+/* eslint-disable no-undef */
 "use strict";
 
 let searchIndex = 0;
 let data = "";
 let scrollEnabled = false;
 let currentScrollHeight = 0;
-let grid = 0;
 
 function Copy() {
   let Url = document.getElementById("sharelink");
@@ -38,10 +38,10 @@ function UpdateSearch(){
             $.each(res,(index,value) => {
                 let diffParsed = value.Difficulty_Category;
                 if (value.Difficulty_Category === "Very Easy"){
-                    diffParsed = "VeryEasy"
+                    diffParsed = "VeryEasy";
                 }
                 if (value.Difficulty_Category === "Very Hard"){
-                    diffParsed = "VeryHard"
+                    diffParsed = "VeryHard";
                 }
                 if (value.Difficulty_Category === "Power Zone"){
                    data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
@@ -100,7 +100,7 @@ function UpdateSearch(){
                     shareableLink+="instructor="+encodeURIComponent(instructorChosen[j])+"&";
                 }
             }
-            shareableLink+="autosubmit=1"
+            shareableLink+="autosubmit=1";
             $("#sharelink").html(shareableLink);
         }
     });
@@ -122,7 +122,7 @@ $(document).ready((e) => {
     let urlParams = new URLSearchParams(window.location.search);
     let titleParam= document.getElementById("title");
     let artistParam= document.getElementById("artist");
-    let excludeArtistParam= document.getElementById("excludeartist")
+    let excludeArtistParam= document.getElementById("excludeartist");
     if (urlParams.get("title")){
         titleParam.value = urlParams.get("title");
     }
@@ -137,7 +137,10 @@ $(document).ready((e) => {
     $(".chosen-select2").val(urlParams.getAll('duration')).trigger("chosen:updated");
     $(".chosen-select").val(urlParams.getAll('instructor')).trigger("chosen:updated");
     if(urlParams.get("autosubmit")!=="0") {
-        setTimeout(function(){$("#submitBtn").click()},100);
+        setTimeout(function(){
+            $("#submitBtn").click();
+        }
+        ,100);
     }
 
     /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached */
