@@ -31,7 +31,6 @@ function UpdateSearch(){
         url:"/PelotonSearch",
         data:{title:titleLivebox, difficulty_cat_chosen:difficultyCatChosen, duration_chosen:durationChosen, instructor_chosen:instructorChosen, type_cat_chosen:typeCatChosen, artist:artistLivebox, exclude_artist:excludeArtistbox, search_index:searchIndex},
         success:function(res){
-            //console.log(res);
             let stopSearch = data;
             $.each(res,function(index,value){
                 /* Future Grid View
@@ -78,7 +77,7 @@ function UpdateSearch(){
                 scrollEnabled = false;
             }
 
-            /* Create Saved Search Link based on current search parameters*/
+            /* Create Saved Search Link based on current search parameters */
             let shareableLink=window.location.protocol+"//"+window.location.host+"/?";
             if(titleLivebox){
                 shareableLink+="title="+encodeURIComponent(titleLivebox)+"&";
@@ -115,19 +114,23 @@ function UpdateSearch(){
     })
 }
 
-$(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select2").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select3").chosen({no_results_text: "Oops, nothing found!"});
-$(".chosen-select4").chosen({no_results_text: "Oops, nothing found!"});
+
 
 
 $(document).ready(function(e){
-    let urlParams = new URLSearchParams(window.location.search);
+
+    /* Chosen Initialization */
+    $(".chosen-select").chosen();
+    $(".chosen-select2").chosen();
+    $(".chosen-select3").chosen();
+    $(".chosen-select4").chosen();
+
     /* Pulling the search parameters from the URL. If autosubmit is enabled in the URL,
        it will also initiate the search on page load */
+    let urlParams = new URLSearchParams(window.location.search);
     let titleParam= document.getElementById("title");
     let artistParam= document.getElementById("artist");
-    let excludeartistParam= document.getElementById("excludeartist")
+    let excludeArtistParam= document.getElementById("excludeartist")
     if (urlParams.get("title")){
         titleParam.value = urlParams.get("title");
     }
@@ -135,7 +138,7 @@ $(document).ready(function(e){
         artistParam.value = urlParams.get("artist");
     }
     if (urlParams.get("excludeartist")){
-        excludeartistParam.checked = true;
+        excludeArtistParam.checked = true;
     }
     $(".chosen-select4").val(urlParams.getAll('difficulty')).trigger("chosen:updated");
     $(".chosen-select3").val(urlParams.getAll('category')).trigger("chosen:updated");
@@ -145,7 +148,7 @@ $(document).ready(function(e){
         setTimeout(function(){$("#submitBtn").click()},100);
     }
 
-    /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached*/
+    /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached */
     $(window).on("scroll", () => {
         let scrollHeight = $(document).height();
         let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
@@ -157,7 +160,7 @@ $(document).ready(function(e){
         }
     });
 
-   /* New Search query when user or other JS code clicks Submit button*/
+   /* New Search query when user or other JS code clicks Submit  */
    $("#submitBtn").on("click",function(e){
         data = "";
         searchIndex = 0;
