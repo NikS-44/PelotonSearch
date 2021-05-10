@@ -1,3 +1,4 @@
+"use strict";
 
 let searchIndex = 0;
 let data = "";
@@ -12,24 +13,26 @@ function Copy() {
 }
 
 function UpdateSearch(){
-    let titleLivebox = $("#title").val();
-    let artistLivebox = $("#artist").val();
-    let difficultyCatChosen = $("#multdifficultycat").val();
-    let typeCatChosen = $("#multtypecat").chosen().val();
-    let durationChosen = $("#multDuration").chosen().val();
-    let instructorChosen = $("#instructorlist").chosen().val();
-    let excludeArtistbox = "";
+    const titleLivebox = $("#title").val();
+    const artistLivebox = $("#artist").val();
+    const difficultyCatChosen = $("#multdifficultycat").val();
+    const typeCatChosen = $("#multtypecat").chosen().val();
+    const durationChosen = $("#multDuration").chosen().val();
+    const instructorChosen = $("#instructorlist").chosen().val();
+    let excludeArtistBox = "";
     if ($("#excludeartist").is(":checked")){
-        excludeArtistbox = "exclude";
+        excludeArtistBox = "exclude";
     }
     else{
-        excludeArtistbox = "include";
+        excludeArtistBox = "include";
     }
 
     $.ajax({
         method:"POST",
         url:"/PelotonSearch",
-        data:{title:titleLivebox, difficulty_cat_chosen:difficultyCatChosen, duration_chosen:durationChosen, instructor_chosen:instructorChosen, type_cat_chosen:typeCatChosen, artist:artistLivebox, exclude_artist:excludeArtistbox, search_index:searchIndex},
+        data:{title:titleLivebox, difficulty_cat_chosen:difficultyCatChosen, duration_chosen:durationChosen,
+              instructor_chosen:instructorChosen, type_cat_chosen:typeCatChosen, artist:artistLivebox,
+              exclude_artist:excludeArtistBox, search_index:searchIndex},
         success:function(res){
             let stopSearch = data;
             $.each(res,function(index,value){
@@ -50,7 +53,7 @@ function UpdateSearch(){
                    "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
                 data+="<h4>Artists: ";
-                let songJSON = JSON.parse(value.Songs);
+                const songJSON = JSON.parse(value.Songs);
                 for (let i=0; i<songJSON.length; i++){
                     if( i === 0 ){
                         data+=songJSON[i].Artist;
@@ -89,8 +92,8 @@ function UpdateSearch(){
                     shareableLink+="category="+encodeURIComponent(typeCatChosen[j])+"&";
                 }
             }
-            if(excludeArtistbox === "exclude"){
-                shareableLink+="excludeartist="+encodeURIComponent(excludeArtistbox)+"&";
+            if(excludeArtistBox === "exclude"){
+                shareableLink+="excludeartist="+encodeURIComponent(excludeArtistBox)+"&";
             }
             if(instructorChosen && instructorChosen.length){
                 for (let j=0; j<instructorChosen.length; j++){
@@ -100,7 +103,7 @@ function UpdateSearch(){
             shareableLink+="autosubmit=1"
             $("#sharelink").html(shareableLink);
         }
-    })
+    });
 }
 
 
@@ -139,9 +142,9 @@ $(document).ready(function(e){
 
     /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached */
     $(window).on("scroll", () => {
-        let scrollHeight = $(document).height();
-        let scrollPos = Math.floor($(window).height() + $(window).scrollTop());
-        let isBottom = scrollHeight - 300 < scrollPos;
+        const scrollHeight = $(document).height();
+        const scrollPos = Math.floor($(window).height() + $(window).scrollTop());
+        const isBottom = scrollHeight - 300 < scrollPos;
         if (isBottom && currentScrollHeight < scrollHeight && scrollEnabled){
             searchIndex += 10;
             UpdateSearch();
@@ -157,4 +160,4 @@ $(document).ready(function(e){
         scrollEnabled = true;
         UpdateSearch();
    });
-})
+});
