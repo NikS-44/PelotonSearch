@@ -3,3 +3,6 @@ PelotonCycling.txt
 /venv
 Peloton.db
 Settings.txt
+/node_modules
+package.json
+package-lock.json
