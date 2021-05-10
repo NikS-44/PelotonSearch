@@ -33,10 +33,6 @@ function UpdateSearch(){
         success:function(res){
             let stopSearch = data;
             $.each(res,function(index,value){
-                /* Future Grid View
-                if (grid%3 === 0){
-                    data+= "<div class=testgrid>";
-                }*/
                 let diffParsed = value.Difficulty_Category;
                 if (value.Difficulty_Category === "Very Easy"){
                     diffParsed = "VeryEasy"
@@ -64,13 +60,6 @@ function UpdateSearch(){
                     }
                 }
                 data+="</h4></div></a><br>";
-                /*Future Grid View
-                data+="</h4></div></a>";
-                grid++;
-                if (grid%3 === 0){
-                    data+= "</div>";
-                }*/
-
             });
             $("#datalist").html(data);
             if (stopSearch === data){
