@@ -33,9 +33,9 @@ function UpdateSearch(){
         data:{title:titleLivebox, difficulty_cat_chosen:difficultyCatChosen, duration_chosen:durationChosen,
               instructor_chosen:instructorChosen, type_cat_chosen:typeCatChosen, artist:artistLivebox,
               exclude_artist:excludeArtistBox, search_index:searchIndex},
-        success:function(res){
+        success:(res) => {
             let stopSearch = data;
-            $.each(res,function(index,value){
+            $.each(res,(index,value) => {
                 let diffParsed = value.Difficulty_Category;
                 if (value.Difficulty_Category === "Very Easy"){
                     diffParsed = "VeryEasy"
@@ -109,7 +109,7 @@ function UpdateSearch(){
 
 
 
-$(document).ready(function(e){
+$(document).ready((e) => {
 
     /* Chosen Initialization */
     $(".chosen-select").chosen();
@@ -153,7 +153,7 @@ $(document).ready(function(e){
     });
 
    /* New Search query when user or other JS code clicks Submit  */
-   $("#submitBtn").on("click",function(e){
+   $("#submitBtn").on("click",(e) => {
         data = "";
         searchIndex = 0;
         currentScrollHeight = 0;
