@@ -3,6 +3,7 @@ import datetime
 import time
 import json
 import os
+import pymysql
 from mysql.connector import connect, Error
 from datetime import datetime
 from unidecode import unidecode
@@ -213,6 +214,54 @@ def mysql_cycling_record_table_create(mysql_settings):
         print(e)
 
 
+def pymysql_database_initialization(mysql_settings):
+    conn = pymysql.connect(
+        host=mysql_settings['MYSQL_HOST'],
+        user=mysql_settings['MYSQL_USER'],
+        password=mysql_settings['MYSQL_PASSWORD']
+    )
+    try:
+        with conn as db_init:
+            db_init_cursor = db_init.cursor()
+            db_init_cursor.execute(f"""CREATE DATABASE IF NOT EXISTS {mysql_settings['MYSQL_DB']}""")
+    except Error as e:
+        print(e)
+
+
+def pymysql_cycling_record_table_create(mysql_settings):
+    try:
+        conn = pymysql.connect(
+            host=mysql_settings['MYSQL_HOST'],
+            user=mysql_settings['MYSQL_USER'],
+            password=mysql_settings['MYSQL_PASSWORD'],
+            db=mysql_settings['MYSQL_DB']
+        )
+        with conn as db:
+            sql_cursor = db.cursor()
+            sql_cursor.execute("""CREATE TABLE IF NOT EXISTS Cycling_Records(
+                                            Title VARCHAR(50),
+                                            Workout_ID VARCHAR(32),
+                                            Difficulty_Rating FLOAT(4,2),
+                                            Peloton_Difficulty_Rating FLOAT(4,2),
+                                            Workout_Length smallint,
+                                            User_Rating FLOAT(6,3),
+                                            Instructor VARCHAR(50),
+                                            Workout_Type VARCHAR(15),
+                                            Workout_Link VARCHAR(111),
+                                            Difficulty_Category VARCHAR(10),
+                                            Expected_Min smallint UNSIGNED,
+                                            Expected_Max smallint UNSIGNED,
+                                            Release_Date VARCHAR(10),
+                                            Last_Modified VARCHAR(10),
+                                            Hide smallint UNSIGNED,
+                                            Thumbnail VARCHAR(150),
+                                            Songs JSON,
+                                            PRIMARY KEY (WORKOUT_ID)
+                                            )""")
+    except Error as e:
+        print(e)
+
+
 def get_multiple_class_json_data(web_cookies, web_headers, web_workout_request_limit):
     url = f"https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&limit={web_workout_request_limit}&content_format=audio%2Cvideo&page=0&sort_by=original_air_time&desc=true"
     multiple_class_api_raw = requests.get(url, headers=web_headers, cookies=web_cookies)
@@ -227,8 +276,8 @@ if __name__ == "__main__":
         exit()
     cfg_settings = settings_reader("Settings.txt")
     # Create database and/or table if it does not exist yet
-    mysql_database_initialization(cfg_settings)
-    mysql_cycling_record_table_create(cfg_settings)
+    pymysql_database_initialization(cfg_settings)
+    pymysql_cycling_record_table_create(cfg_settings)
     # Change workout request limit to set the number of classes to fetch details on
     workout_request_limit = 9000
     # My peloton_session_id cookie is stored in the OS system environment variables
@@ -238,12 +287,13 @@ if __name__ == "__main__":
     # Walk through individual class records and add or update class records
     # Opening the db connection once rather than for every record update sped up the program 10x
     try:
-        with connect(
-                host=cfg_settings['MYSQL_HOST'],
-                user=cfg_settings['MYSQL_USER'],
-                passwd=cfg_settings['MYSQL_PASSWORD'],
-                database=cfg_settings['MYSQL_DB']
-        ) as database_conn:
+        conn = pymysql.connect(
+            host=cfg_settings['MYSQL_HOST'],
+            user=cfg_settings['MYSQL_USER'],
+            password=cfg_settings['MYSQL_PASSWORD'],
+            db=cfg_settings['MYSQL_DB']
+        )
+        with conn as database_conn:
             for workout in class_data['data']:
                 workout_instance = CyclingWorkout(workout)
                 workout_instance.print()
