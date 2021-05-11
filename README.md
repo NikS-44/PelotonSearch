@@ -1,4 +1,4 @@
-This application is a simple, mobile-friendly search engine for Peloton cycling classes. It expands searching capabilities beyond the current scope of the Peloton search function, and allows for a user to easily setup bookmarks with pre-configured search parameters. 
+This [application](pel.nshah.org) is a simple, mobile-friendly search engine for Peloton cycling classes. It expands searching capabilities beyond the current scope of the Peloton search function, and allows for a user to easily setup bookmarks with pre-configured search parameters. 
 
 The back end/database creation "PelotonCyclingScraper.py" application runs using the Peloton API in conjunction with a user-specific Peloton Session ID cookie to build a local MYSQL or mariadb server. MYSQL or mariadb must be loaded and setup prior to running the application. The MYSQL credentials and Peloton Session ID Cookie are loaded through a Settings.txt file that is auto-generated on the first execution of the Scraper or Flask App. 
 
