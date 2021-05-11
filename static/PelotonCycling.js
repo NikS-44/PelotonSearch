@@ -142,25 +142,25 @@ document.addEventListener('DOMContentLoaded',()=>{
     $(".chosen-select").val(urlParams.getAll('instructor')).trigger("chosen:updated");
     if(urlParams.get("autosubmit")!=="0") {
         setTimeout(function(){
-            $("#submitBtn").click();
+            document.getElementById("submitBtn").click();
         }
         ,100);
     }
 
     /* Infinite scrolling implementation - Loads 10 new users when the bottom of the page is reached */
-    $(window).on("scroll", () => {
+    window.addEventListener('scroll',() => {
         const scrollHeight = $(document).height();
         const scrollPos = Math.floor($(window).height() + $(window).scrollTop());
-        const isBottom = scrollHeight - 300 < scrollPos;
+        const isBottom = scrollHeight - 800 < scrollPos;
         if (isBottom && currentScrollHeight < scrollHeight && scrollEnabled){
-            searchIndex += 10;
+            searchIndex += 18;
             UpdateSearch();
             currentScrollHeight = scrollHeight;
         }
     });
 
    /* New Search query when user or other JS code clicks Submit  */
-   $("#submitBtn").on("click",(e) => {
+    document.getElementById("submitBtn").addEventListener('click', (e) => {
         data = "";
         searchIndex = 0;
         currentScrollHeight = 0;
