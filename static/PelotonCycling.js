@@ -46,13 +46,17 @@ function UpdateSearch(){
                     diffParsed = "VeryHard";
                 }
                 if (value.Difficulty_Category === "Power Zone"){
-                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
-                   "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+
+                   value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                   "</h3><h3>"+value.Instructor+"</h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
+                   "</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
                 else{
-                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
-                   "</h3><h3>"+value.Instructor+ "    ·   <b class=" +diffParsed+ " >▊"+ value.Difficulty_Category +"</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+
-                   "</h3><h3> Output Range: "+value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
+                   data+= "<div class=myDiv style='margin: auto;'><a href="+value.Workout_Link+"><h1><img src="+
+                   value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
+                   "</h3><h3>"+value.Instructor+ "    ·   <b class=" +diffParsed+ " >▊"+ value.Difficulty_Category +
+                   "</b></h3><h3> Difficulty: "+value.Peloton_Difficulty_Rating+"</h3><h3> Output Range: "+
+                   value.Expected_Min+" kJ - "+value.Expected_Max+" kJ</h3><h3> User Rating: "+value.User_Rating+"% </h3>";
                 }
                 data+="<h4>Artists: ";
                 const songJSON = JSON.parse(value.Songs);
@@ -61,7 +65,7 @@ function UpdateSearch(){
                         data+=songJSON[i].Artist;
                     }
                     else{
-                        data+=", "+ songJSON[i].Artist;
+                        data+=`, ${songJSON[i].Artist}`;
                     }
                 }
                 data+="</h4></div></a><br>";
@@ -72,34 +76,34 @@ function UpdateSearch(){
             }
 
             /* Create Saved Search Link based on current search parameters */
-            let shareableLink=window.location.protocol+"//"+window.location.host+"/?";
+            let shareableLink=`${window.location.protocol}//${window.location.host}/?`;
             if(titleLivebox){
-                shareableLink+="title="+encodeURIComponent(titleLivebox)+"&";
+                shareableLink+=`title=${encodeURIComponent(titleLivebox)}&`;
             }
             if(artistLivebox){
-                shareableLink+="artist="+encodeURIComponent(artistLivebox)+"&";
+                shareableLink+=`artist=${encodeURIComponent(artistLivebox)}&`;
             }
             if(durationChosen && durationChosen.length){
                 for (let j=0; j<durationChosen.length; j++){
-                    shareableLink+="duration="+encodeURIComponent(durationChosen[j])+"&";
+                    shareableLink+=`duration=${encodeURIComponent(durationChosen[j])}&`;
                 }
             }
             if(difficultyCatChosen && difficultyCatChosen.length){
                 for (let j=0; j<difficultyCatChosen.length; j++){
-                    shareableLink+="difficulty="+encodeURIComponent(difficultyCatChosen[j])+"&";
+                    shareableLink+=`difficulty=${encodeURIComponent(difficultyCatChosen[j])}&`;
                 }
             }
             if(typeCatChosen && typeCatChosen.length){
                 for (let j=0; j<typeCatChosen.length; j++){
-                    shareableLink+="category="+encodeURIComponent(typeCatChosen[j])+"&";
+                    shareableLink+=`category=${encodeURIComponent(typeCatChosen[j])}&`;
                 }
             }
             if(excludeArtistBox === "exclude"){
-                shareableLink+="excludeartist="+encodeURIComponent(excludeArtistBox)+"&";
+                shareableLink+=`excludeartist${encodeURIComponent(excludeArtistBox)}&`;
             }
             if(instructorChosen && instructorChosen.length){
                 for (let j=0; j<instructorChosen.length; j++){
-                    shareableLink+="instructor="+encodeURIComponent(instructorChosen[j])+"&";
+                    shareableLink+=`instructor=${encodeURIComponent(instructorChosen[j])}&`;
                 }
             }
             shareableLink+="autosubmit=1";
