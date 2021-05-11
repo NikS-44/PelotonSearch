@@ -114,9 +114,7 @@ function UpdateSearch(){
 
 
 
-
-$(document).ready((e) => {
-
+document.addEventListener('DOMContentLoaded',()=>{
     /* Chosen Initialization */
     $(".chosen-select").chosen();
     $(".chosen-select2").chosen();
