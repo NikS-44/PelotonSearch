@@ -124,3 +124,14 @@ font-size:20pt;
 .pointer {
   cursor: pointer;
 }
+
+nav {
+    background: white;
+    border-bottom: 1px solid #b1b7bf;
+    min-height: 25px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: #b1b7bf;
+    font-family: Helvetica, sans-serif;
+}
