@@ -39,12 +39,14 @@ function UpdateSearch(){
             let stopSearch = data;
             $.each(res,(index,value) => {
                 let diffParsed = value.Difficulty_Category;
+                // Removing the any spaces in the category name so we can use it as a class tag
                 if (value.Difficulty_Category === "Very Easy"){
                     diffParsed = "VeryEasy";
                 }
                 if (value.Difficulty_Category === "Very Hard"){
                     diffParsed = "VeryHard";
                 }
+                // Creating the individual class boxes
                 if (value.Difficulty_Category === "Power Zone"){
                    data+= "<div class='myDiv box-shadow-hover pointer'><a href="+value.Workout_Link+"><h1><img src="+
                    value.Thumbnail+" height=222 width=333></h1><h2>"+value.Title+"</h2><h3>"+value.Release_Date+
@@ -152,7 +154,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         const scrollHeight = $(document).height();
         const scrollPos = Math.floor($(window).height() + $(window).scrollTop());
         const isBottom = scrollHeight - 800 < scrollPos;
-        if (isBottom && currentScrollHeight < scrollHeight && scrollEnabled){
+        if (isBottom && (currentScrollHeight < scrollHeight) && scrollEnabled){
             searchIndex += 18;
             UpdateSearch();
             currentScrollHeight = scrollHeight;
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
 
    /* New Search query when user or other JS code clicks Submit  */
-    document.getElementById("submitBtn").addEventListener('click', (e) => {
+    document.getElementById("submitBtn").addEventListener('click', () => {
         data = "";
         searchIndex = 0;
         currentScrollHeight = 0;
