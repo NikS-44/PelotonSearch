@@ -127,8 +127,11 @@ class CyclingWorkout:
             workout_api_url = f'https://api.onepeloton.com/api/ride/{self.workout_id}/details?stream_source=multichannel'
             workout_info_raw = requests.get(workout_api_url, headers=headers, cookies=cookies)
             workout_info = workout_info_raw.json()
-            # To prevent me from spamming their API, I elected to add a 1s artificial timer between page requests
+
+            ####### To prevent me from spamming their API, I elected to add a 1s artificial timer between page requests
             time.sleep(1)
+            #######
+
             with open(f'./classes/{self.workout_id}.json', 'w', encoding='utf8') as workout_file:
                 try:
                     workout_file.write(workout_info_raw.text)
@@ -176,6 +179,7 @@ def pymysql_database_initialization(mysql_settings):
     with conn as db_init:
         db_init_cursor = db_init.cursor()
         db_init_cursor.execute(f"""CREATE DATABASE IF NOT EXISTS {mysql_settings['MYSQL_DB']}""")
+
 
 def pymysql_cycling_record_table_create(mysql_settings):
     conn = pymysql.connect(
@@ -226,7 +230,7 @@ if __name__ == "__main__":
     pymysql_cycling_record_table_create(cfg_settings)
     # Change workout request limit to set the number of classes to fetch details on
     workout_request_limit = 9000
-    # My peloton_session_id cookie is stored in the OS system environment variables
+    # My peloton_session_id cookie is stored in the Settings.txt file
     cookies = {'peloton_session_id': cfg_settings['peloton_session_id']}
     headers = {'peloton-platform': 'web'}
     class_data = get_multiple_class_json_data(cookies, headers, workout_request_limit)

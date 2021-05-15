@@ -33,7 +33,6 @@ def settings_reader(filename):
             if "##END##" in line_read and categories_read:
                 break
             category_type = line_read.split(':')[0]
-            # Start from 2nd argument ('1') to the end of the file (blank), read every other argument to get the quoted match cases ('2')
             category_match_case = line_read.split('"')[1]
             input_category_types[category_type] = category_match_case
     return input_category_types
@@ -52,6 +51,20 @@ def multi_sql_format(item_list, sql_category):
             else:
                 item_sql += ', "' + item + '"'
         item_sql += ")"
+    return item_sql
+
+
+def multi_sql_format_catless(item_list):
+    item_sql = ""
+    if item_list:
+        item_sql = f""
+        first = True
+        for item in item_list:
+            if first:
+                item_sql += '"' + item + '"'
+                first = False
+            else:
+                item_sql += ', "' + item + '"'
     return item_sql
 
 
@@ -134,12 +147,26 @@ def PelotonSearch():
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Need to add further SQL Injection prevention for all parameters that could be injected
     query = (
-        f"""select * from Cycling_Records where Title LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
-        f"""{duration_sql} {category_sql}  order by Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
+        f"""SELECT * FROM Cycling_Records WHERE Title LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
+        f"""{duration_sql} {category_sql}  ORDER BY Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
     )
+    title_box_param = '%{}%'.format(title_box)
+    cursor.execute(query, (title_box_param,))
 
-    param = '%{}%'.format(title_box)
-    cursor.execute(query, (param,))
+    ## WIP - SQL Injection Prevention ##
+    # query = (
+    #         f"""SELECT * FROM Cycling_Records WHERE Title LIKE %s AND Instructor IN (%s) %s %s %s """
+    #         f"""ORDER BY Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
+    #         )
+    # instructor_sql_param = '{}'.format(instructor_sql)
+    # song_artist_sql_param = '{}'.format(song_artist_sql)
+    # difficulty_sql_param = '{}'.format(difficulty_sql)
+    # duration_sql_param = '{}'.format(duration_sql)
+    # category_sql_param = '{}'.format(category_sql)
+    # search_index_param = '{}'.format(search_index)
+    # cursor.execute(query, (title_box_param, instructor_sql_param, song_artist_sql_param, difficulty_sql_param, duration_sql_param, category_sql_param))
+    # print(cursor._last_executed)
+
     results = cursor.fetchall()
     cursor.close()
     return jsonify(results)
