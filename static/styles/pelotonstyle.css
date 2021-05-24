@@ -135,3 +135,7 @@ nav {
     color: #b1b7bf;
     font-family: Helvetica, sans-serif;
 }
+
+.chosen-container{
+    width: 325px;
+}
