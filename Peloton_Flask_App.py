@@ -172,23 +172,25 @@ def PelotonSearch():
     return jsonify(results)
 
 
-if __name__ == "__main__":
-    if not os.path.exists("Settings.txt"):
-        initialize_settings("Settings.txt")
-        print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
-        exit()
-    # Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
-    # User will need to set up the SQL server config variables in the Settings.txt file that is created
-    settings = settings_reader("Settings.txt")
-    app.config['MYSQL_HOST'] = settings['MYSQL_HOST']
-    app.config['MYSQL_USER'] = settings['MYSQL_USER']
-    app.config['MYSQL_PASSWORD'] = settings['MYSQL_PASSWORD']
-    app.config['MYSQL_DB'] = settings['MYSQL_DB']
-    app.config['MYSQL_CURSORCLASS'] = settings['MYSQL_CURSORCLASS']
-    app.config['MYSQL_AUTH_PLUGIN'] = settings['MYSQL_AUTH_PLUGIN']
-    db = MySQL(app)
 
-    # Access at http://127.0.0.1:5000/ - Will not available on local network
-    # app.run()
-    # Access at localhost:5000 or http://127.0.0.1:5000/ - Will also be available on local network
+if not os.path.exists("Settings.txt"):
+    initialize_settings("Settings.txt")
+    print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
+    exit()
+# Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
+# User will need to set up the SQL server config variables in the Settings.txt file that is created
+settings = settings_reader("Settings.txt")
+app.config['MYSQL_HOST'] = settings['MYSQL_HOST']
+app.config['MYSQL_USER'] = settings['MYSQL_USER']
+app.config['MYSQL_PASSWORD'] = settings['MYSQL_PASSWORD']
+app.config['MYSQL_DB'] = settings['MYSQL_DB']
+app.config['MYSQL_CURSORCLASS'] = settings['MYSQL_CURSORCLASS']
+app.config['MYSQL_AUTH_PLUGIN'] = settings['MYSQL_AUTH_PLUGIN']
+db = MySQL(app)
+
+# Access at http://127.0.0.1:5000/ - Will not available on local network
+# app.run()
+# Access at localhost:5000 or http://127.0.0.1:5000/ - Will also be available on local network
+
+if __name__ == "__main__":
     app.run(host='0.0.0.0')
