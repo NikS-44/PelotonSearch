@@ -57,9 +57,9 @@ function UpdateSearch() {
 					data +=
 						"<div class='myDiv box-shadow-hover pointer'><a href=" +
 						value.Workout_Link +
-						'><h1><img src=' +
+						'><img src=' +
 						value.Thumbnail +
-						' height=222 width=333></h1><h2>' +
+						' height=231 width=350 class=class-picture><h2>' +
 						value.Title +
 						'</h2><h3>' +
 						value.Release_Date +
@@ -74,9 +74,9 @@ function UpdateSearch() {
 					data +=
 						"<div class='myDiv box-shadow-hover pointer'><a href=" +
 						value.Workout_Link +
-						'><h1><img src=' +
+						'><img src=' +
 						value.Thumbnail +
-						' height=222 width=333></h1><h2>' +
+						' height=231 width=350 class=class-picture><h2>' +
 						value.Title +
 						'</h2><h3>' +
 						value.Release_Date +

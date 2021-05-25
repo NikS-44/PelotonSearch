@@ -17,6 +17,7 @@ font-size:20pt;
 .myDiv {
   border-style: groove;
   border-radius: 5px;
+  border-width: 1px;
   border-color: transparent;
   background-color: white;
   text-align: center;
@@ -138,4 +139,11 @@ nav {
 
 .chosen-container{
     width: 325px;
+}
+
+.class-picture{
+    position: relative;
+    top: -1px;
+    left: -1px;
+    border-radius: 3px;
 }
