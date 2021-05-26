@@ -59,7 +59,7 @@ function UpdateSearch() {
 						value.Workout_Link +
 						'><img src=' +
 						value.Thumbnail +
-						' height=231 width=350 class=class-picture><h2>' +
+						' height=232 width=352 class=class-picture><h2>' +
 						value.Title +
 						'</h2><h3>' +
 						value.Release_Date +
@@ -76,7 +76,7 @@ function UpdateSearch() {
 						value.Workout_Link +
 						'><img src=' +
 						value.Thumbnail +
-						' height=231 width=350 class=class-picture><h2>' +
+						' height=232 width=352 class=class-picture><h2>' +
 						value.Title +
 						'</h2><h3>' +
 						value.Release_Date +
