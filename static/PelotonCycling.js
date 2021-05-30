@@ -57,7 +57,7 @@ function UpdateSearch() {
 					data +=
 						"<div class='myDiv box-shadow-hover pointer'><a href=" +
 						value.Workout_Link +
-						'><img src=' +
+						'><img src=https://res.cloudinary.com/peloton-cycle/image/fetch/c_scale,dpr_1.0,f_auto,q_auto,w_352/' +
 						value.Thumbnail +
 						' height=232 width=352 class=class-picture><h2>' +
 						value.Title +
@@ -74,7 +74,7 @@ function UpdateSearch() {
 					data +=
 						"<div class='myDiv box-shadow-hover pointer'><a href=" +
 						value.Workout_Link +
-						'><img src=' +
+						'><img src=https://res.cloudinary.com/peloton-cycle/image/fetch/c_scale,dpr_1.0,f_auto,q_auto,w_352/' +
 						value.Thumbnail +
 						' height=232 width=352 class=class-picture><h2>' +
 						value.Title +
