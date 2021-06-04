@@ -85,7 +85,7 @@ class CyclingWorkout:
         except KeyError:
             print(f"Output Targets Not Defined")
         # Custom difficulty range/categories based on expected output
-        self.difficulty_category = "Power Zone" if self.difficulty_rating == 0 \
+        self.difficulty_category = "Power Zone" if self.workout_category == "Power Zone"\
             else "Very Easy" if self.difficulty_rating < 3.6 \
             else "Easy" if self.difficulty_rating < 4.6 \
             else "Medium" if self.difficulty_rating <= 5.6 \
@@ -125,7 +125,7 @@ class CyclingWorkout:
                 workout_info = json.load(workout_file)
         else:
             workout_api_url = f'https://api.onepeloton.com/api/ride/{self.workout_id}/details?stream_source=multichannel'
-            workout_info_raw = requests.get(workout_api_url, headers=headers, cookies=cookies)
+            workout_info_raw = requests.get(workout_api_url, verify=False, headers=headers, cookies=cookies)
             workout_info = workout_info_raw.json()
 
             ####### To prevent me from spamming their API, I elected to add a 1s artificial timer between page requests
@@ -214,7 +214,7 @@ def pymysql_cycling_record_table_create(mysql_settings):
 
 def get_multiple_class_json_data(web_cookies, web_headers, web_workout_request_limit):
     url = f"https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&limit={web_workout_request_limit}&content_format=audio%2Cvideo&page=0&sort_by=original_air_time&desc=true"
-    multiple_class_api_raw = requests.get(url, headers=web_headers, cookies=web_cookies)
+    multiple_class_api_raw = requests.get(url, verify=False, headers=web_headers, cookies=web_cookies)
     multiple_class_api_parsed = json.loads(multiple_class_api_raw.text)
     return multiple_class_api_parsed
 
