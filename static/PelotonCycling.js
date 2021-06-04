@@ -15,8 +15,8 @@ function Copy() {
 }
 
 function UpdateSearch() {
-	const titleLivebox = $('#title').val();
-	const artistLivebox = $('#artist').val();
+	const titleLivebox = $('#title').val().trim();
+	const artistLivebox = $('#artist').val().trim();
 	const difficultyCatChosen = $('#multdifficultycat').val();
 	const typeCatChosen = $('#multtypecat').chosen().val();
 	const durationChosen = $('#multDuration').chosen().val();
