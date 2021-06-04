@@ -21,6 +21,7 @@ function UpdateSearch() {
 	const typeCatChosen = $('#multtypecat').chosen().val();
 	const durationChosen = $('#multDuration').chosen().val();
 	const instructorChosen = $('#instructorlist').chosen().val();
+	const sortbyBox = $('#sortby').val();
 	let excludeArtistBox = '';
 	if ($('#excludeartist').is(':checked')) {
 		excludeArtistBox = 'exclude';
@@ -40,6 +41,7 @@ function UpdateSearch() {
 			artist: artistLivebox,
 			exclude_artist: excludeArtistBox,
 			search_index: searchIndex,
+			sort_by: sortbyBox
 		},
 		success: (res) => {
 			let stopSearch = data;
@@ -149,6 +151,9 @@ function UpdateSearch() {
 					)}&`;
 				}
 			}
+			if (sortbyBox) {
+				shareableLink += `sortby=${encodeURIComponent(sortbyBox)}&`;
+			}
 			shareableLink += 'autosubmit=1';
 			$('#sharelink').html(shareableLink);
 		},
@@ -167,6 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	let urlParams = new URLSearchParams(window.location.search);
 	let titleParam = document.getElementById('title');
 	let artistParam = document.getElementById('artist');
+	let sortByParam = document.getElementById('sortby');
+	sortByParam.value = 'Newest';
 	let excludeArtistParam = document.getElementById('excludeartist');
 	if (urlParams.get('title')) {
 		titleParam.value = urlParams.get('title');
@@ -176,6 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	if (urlParams.get('excludeartist')) {
 		excludeArtistParam.checked = true;
+	}
+	if (urlParams.get('sortby')) {
+		sortByParam.value = urlParams.get('sortby');
 	}
 	$('.chosen-select4')
 		.val(urlParams.getAll('difficulty'))

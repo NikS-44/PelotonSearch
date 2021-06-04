@@ -4,6 +4,10 @@ import os
 
 app = Flask(__name__)
 
+SORTING_LOOKUP = {"Newest": "ORDER BY Release_Date DESC",
+                  "Easiest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating ASC",
+                  "Hardest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating DESC",
+                  "User Rating": "ORDER BY User_Rating DESC"}
 
 def initialize_settings(filename):
     with open(filename, 'w') as settings_writer:
@@ -123,6 +127,8 @@ def PelotonSearch():
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("exclude_artist")
     search_index = request.form.get("search_index")
+    sort_by = request.form.get("sort_by")
+    order = SORTING_LOOKUP[sort_by]
 
     # Future Feature- Multi-input custom song/artist filters
     # Comma seperated input parsing could work for getting multi custom inputs from the website
@@ -148,7 +154,7 @@ def PelotonSearch():
     # Need to add further SQL Injection prevention for all parameters that could be injected
     query = (
         f"""SELECT * FROM Cycling_Records WHERE Title LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
-        f"""{duration_sql} {category_sql}  ORDER BY Release_Date DESC LIMIT {result_limit} OFFSET {search_index}"""
+        f"""{duration_sql} {category_sql} {order} LIMIT {result_limit} OFFSET {search_index}"""
     )
     title_box_param = '%{}%'.format(title_box)
     cursor.execute(query, (title_box_param,))
