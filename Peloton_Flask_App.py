@@ -7,7 +7,9 @@ app = Flask(__name__)
 SORTING_LOOKUP = {"Newest": "ORDER BY Release_Date DESC",
                   "Easiest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating ASC",
                   "Hardest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating DESC",
-                  "User Rating": "ORDER BY User_Rating DESC"}
+                  "User Rating": "ORDER BY User_Rating DESC",
+                  "Peloton Easiest": "ORDER BY Peloton_Difficulty_Rating ASC",
+                  "Peloton Hardest": "ORDER BY Peloton_Difficulty_Rating DESC"}
 
 def initialize_settings(filename):
     with open(filename, 'w') as settings_writer:
@@ -199,4 +201,4 @@ db = MySQL(app)
 # Access at localhost:5000 or http://127.0.0.1:5000/ - Will also be available on local network
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='localhost')
