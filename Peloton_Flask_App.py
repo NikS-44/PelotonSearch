@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 
 SORTING_LOOKUP = {"Newest": "ORDER BY Release_Date DESC",
+                  "Oldest": "ORDER BY Release_Date ASC",
                   "Easiest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating ASC",
                   "Hardest": "AND Difficulty_Rating > 0 ORDER BY Difficulty_Rating DESC",
                   "User Rating": "ORDER BY User_Rating DESC",
@@ -201,4 +202,7 @@ db = MySQL(app)
 # Access at localhost:5000 or http://127.0.0.1:5000/ - Will also be available on local network
 
 if __name__ == "__main__":
-    app.run(host='localhost')
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+    app.run(debug=True)
+    #app.run(host='0.0.0.0', debug=True)
