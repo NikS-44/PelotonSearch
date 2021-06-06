@@ -181,14 +181,25 @@ def PelotonSearch():
     return jsonify(results)
 
 
+if __name__ == "__main__":
+    if not os.path.exists("Settings.txt"):
+        initialize_settings("Settings.txt")
+        print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
+        exit()
+    # Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
+    # User will need to set up the SQL server config variables in the Settings.txt file that is created
+    settings = settings_reader("Settings.txt")
+else:
+    # For Apache2 Server
+    if not os.path.exists("/var/www/html/PelotonSearch/Settings.txt"):
+        initialize_settings("/var/www/html/PelotonSearch/Settings.txt")
+        print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
+        exit()
+    # Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
+    # User will need to set up the SQL server config variables in the Settings.txt file that is created
+    settings = settings_reader("/var/www/html/PelotonSearch/Settings.txt")
 
-if not os.path.exists("Settings.txt"):
-    initialize_settings("Settings.txt")
-    print("Please setup Settings.txt with your DB info and peloton cookie and re-run the application")
-    exit()
-# Read the User Settings (including SQL credentials) from Settings.txt (will always have a default category of Uncategorized)
-# User will need to set up the SQL server config variables in the Settings.txt file that is created
-settings = settings_reader("Settings.txt")
+
 app.config['MYSQL_HOST'] = settings['MYSQL_HOST']
 app.config['MYSQL_USER'] = settings['MYSQL_USER']
 app.config['MYSQL_PASSWORD'] = settings['MYSQL_PASSWORD']
