@@ -166,16 +166,14 @@ nav {
     top: 195px;
     right: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 .class-rating{
     position: absolute;
     top: 171px;
     right: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
 .class-title{
@@ -183,8 +181,7 @@ nav {
     top: 132px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
 .class-date{
@@ -192,8 +189,7 @@ nav {
     top: 156px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 
 }
 
@@ -202,8 +198,7 @@ nav {
     top: 195px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
 
@@ -212,8 +207,7 @@ nav {
     top: 174px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
-                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 
 }
 
