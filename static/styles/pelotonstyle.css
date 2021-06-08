@@ -4,9 +4,19 @@ body{
 }
 h2{
     line-height: normal;
+    font-weight: 500;
+    font-size: 20px;
 }
 h4{
     line-height: 1;
+    font-weight: 500;
+    font-size: 15px;
+}
+h4.class-artists{
+    margin: .4em
+}
+h5{
+    font-weight: 500;
 }
 a {
     color: inherit;
@@ -55,19 +65,24 @@ font-size:20pt;
 }
 
 .Hard {
-    color: red;
+    color: #c74c0e;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .VeryHard {
-    color: darkred;
+    color: #d11111;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .Medium {
-    color: orange;
+    color: #f09618;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .Easy {
     color: green;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .VeryEasy {
     color: limegreen;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .form-control
 {
@@ -147,4 +162,53 @@ nav {
     top: -1px;
     left: -1px;
     border-radius: 3px;
+}
+
+.class-difficulty{
+    position: absolute;
+    top: 195px;
+    right: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.class-rating{
+    position: absolute;
+    top: 171px;
+    right: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.class-title{
+    position: absolute;
+    top: 132px;
+    left: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.class-date{
+    position: absolute;
+    top: 156px;
+    left: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+.class-output{
+    position: absolute;
+    top: 195px;
+    left: 10px;
+    color: white;
+}
+
+
+.class-instructor{
+    position: absolute;
+    top: 174px;
+    left: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
