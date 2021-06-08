@@ -105,7 +105,8 @@ font-size:20pt;
 .chosen-select
 {
     font-size: 20px;
-    width: 325px;
+    /*width: 325px;*/
+    width:90%;
 }
 .chosen-select2
 {
