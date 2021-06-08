@@ -66,23 +66,18 @@ font-size:20pt;
 
 .Hard {
     color: #c74c0e;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .VeryHard {
     color: #d11111;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .Medium {
     color: #f09618;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .Easy {
     color: green;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .VeryEasy {
     color: limegreen;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .form-control
 {
@@ -169,14 +164,16 @@ nav {
     top: 195px;
     right: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 }
 .class-rating{
     position: absolute;
     top: 171px;
     right: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 }
 
 .class-title{
@@ -184,7 +181,8 @@ nav {
     top: 132px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 }
 
 .class-date{
@@ -192,7 +190,8 @@ nav {
     top: 156px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 
 }
 
@@ -201,6 +200,8 @@ nav {
     top: 195px;
     left: 10px;
     color: white;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 }
 
 
@@ -209,6 +210,13 @@ nav {
     top: 174px;
     left: 10px;
     color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 0   -1px 0 #000, 1px -1px 0 #000, 1px  0   0 #000,
+                  1px  1px 0 #000, 0    1px 0 #000, -1px  1px 0 #000, -1px  0   0 #000;
 
+}
+
+.thumbs-up{
+    stroke: black;
+    stroke-width: 2px;
+    paint-order: stroke fill;
 }
