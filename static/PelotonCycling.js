@@ -28,6 +28,12 @@ function UpdateSearch() {
 	} else {
 		excludeArtistBox = 'include';
 	}
+	let  excludeTitleBox = '';
+	if ($('#excludetitle').is(':checked')) {
+		excludeTitleBox = 'exclude';
+	} else {
+		excludeTitleBox = 'include';
+	}
 
 	$.ajax({
 		method: 'POST',
@@ -41,7 +47,8 @@ function UpdateSearch() {
 			artist: artistLivebox,
 			exclude_artist: excludeArtistBox,
 			search_index: searchIndex,
-			sort_by: sortbyBox
+			sort_by: sortbyBox,
+			exclude_title: excludeTitleBox
 		},
 		success: (res) => {
 			let stopSearch = data;
@@ -140,8 +147,13 @@ function UpdateSearch() {
 				}
 			}
 			if (excludeArtistBox === 'exclude') {
-				shareableLink += `excludeartist${encodeURIComponent(
+				shareableLink += `excludeartist=${encodeURIComponent(
 					excludeArtistBox
+				)}&`;
+			}
+			if (excludeTitleBox === 'exclude') {
+				shareableLink += `excludetitle=${encodeURIComponent(
+					excludeTitleBox
 				)}&`;
 			}
 			if (instructorChosen && instructorChosen.length) {
@@ -175,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let sortByParam = document.getElementById('sortby');
 	sortByParam.value = 'Newest';
 	let excludeArtistParam = document.getElementById('excludeartist');
+	let excludeTitleParam = document.getElementById('excludetitle');
 	if (urlParams.get('title')) {
 		titleParam.value = urlParams.get('title');
 	}
@@ -183,6 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	if (urlParams.get('excludeartist')) {
 		excludeArtistParam.checked = true;
+	}
+	if (urlParams.get('excludetitle')) {
+		excludeTitleParam.checked = true;
 	}
 	if (urlParams.get('sortby')) {
 		sortByParam.value = urlParams.get('sortby');

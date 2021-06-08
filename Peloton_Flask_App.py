@@ -129,6 +129,7 @@ def PelotonSearch():
     category_list = request.form.getlist("type_cat_chosen[]")
     artist_box = request.form.get("artist")
     exclude_artist_box = request.form.get("exclude_artist")
+    exclude_title_box = request.form.get("exclude_title")
     search_index = request.form.get("search_index")
     sort_by = request.form.get("sort_by")
     order = SORTING_LOOKUP[sort_by]
@@ -147,6 +148,10 @@ def PelotonSearch():
     else:
         exclude_artist = False
 
+    title_match = ""
+    if exclude_title_box == "exclude":
+        title_match = "NOT"
+
     difficulty_sql = multi_sql_format(difficulty_list, "Difficulty_Category")
     category_sql = multi_sql_format(category_list, "Workout_Type")
     instructor_sql = multi_sql_format(instructor_list, "Instructor")
@@ -156,7 +161,7 @@ def PelotonSearch():
     # Separate Title Box into param variable to protect against an SQL Injection from the text entry box
     # Need to add further SQL Injection prevention for all parameters that could be injected
     query = (
-        f"""SELECT * FROM Cycling_Records WHERE Title LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
+        f"""SELECT * FROM Cycling_Records WHERE Title {title_match} LIKE %s {instructor_sql} {song_artist_sql} {difficulty_sql} """
         f"""{duration_sql} {category_sql} {order} LIMIT {result_limit} OFFSET {search_index}"""
     )
     title_box_param = '%{}%'.format(title_box)
