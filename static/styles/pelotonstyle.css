@@ -13,7 +13,8 @@ h4{
     font-size: 15px;
 }
 h4.class-artists{
-    margin: .4em
+    margin: .4em;
+    line-height: 1.2;
 }
 h5{
     font-weight: 500;
