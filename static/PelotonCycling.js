@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const scrollPos = Math.floor($(window).height() + $(window).scrollTop());
 		const isBottom = scrollHeight - 800 < scrollPos;
 		if (isBottom && currentScrollHeight < scrollHeight && scrollEnabled) {
-			searchIndex += 18;
+			searchIndex += 24;
 			UpdateSearch();
 			currentScrollHeight = scrollHeight;
 		}
