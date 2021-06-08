@@ -140,7 +140,7 @@ def PelotonSearch():
     if artist_box:
         artist_list.append(artist_box)
 
-    result_limit = 24
+    result_limit = 36
 
     # Check the state of the Exclude Artist Checkbox
     if exclude_artist_box == "exclude":
