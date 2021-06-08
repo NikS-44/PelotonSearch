@@ -102,6 +102,8 @@ class CyclingWorkout:
             song_array.append(song_title)
             artist_array.append(song_artist)
         self.songs_json = json.dumps([{"Artist": a, "Song": s} for a, s in zip(artist_array, song_array)])
+        self.average_cadence = workout_info['averages']['average_avg_cadence']
+        self.average_resistance = workout_info['averages']['average_avg_resistance']
 
     def print(self):
         print(f"\nInstructor: {self.instructor}")
@@ -117,6 +119,8 @@ class CyclingWorkout:
         print(f"Current Date {self.current_date}")
         print(f"Image Link: {self.image_link}")
         print(f"Workout Link:{self.workout_link}")
+        print(f"Average Cadence: {self.average_cadence}")
+        print(f"Average Resistance:{self.average_resistance}")
 
     def get_local_workout_info_json(self):
         # Keep local copies of classes as to not spam the API
@@ -147,16 +151,16 @@ class CyclingWorkout:
         if cycling_entry is None:
             print(f"New Entry Found:{self.workout_id} \nAdding to the database...")
             query = f"INSERT INTO Cycling_Records( Title, Workout_ID, Difficulty_Rating, Peloton_Difficulty_Rating, " \
-                    f"Workout_Length, User_Rating, Instructor, Workout_Type, Workout_Link, Difficulty_Category," \
-                    f" Expected_Min, Expected_Max, Release_Date, Last_Modified, Hide, Thumbnail, Songs) " \
-                    f"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    f"Workout_Length, User_Rating, Instructor, Workout_Type, Workout_Link, Difficulty_Category, " \
+                    f"Expected_Min, Expected_Max, Release_Date, Last_Modified, Hide, Thumbnail, Songs, Average_Cadence, " \
+                    f"Average_Resistance) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             sql_cursor.execute(query, (
                 self.title, self.workout_id, self.difficulty_rating, self.peloton_difficulty_rating,
                 self.duration,
                 self.user_rating, self.instructor, self.workout_category, self.workout_link,
                 self.difficulty_category,
                 self.target_lower_output, self.target_upper_output, self.air_date, self.current_date,
-                0, self.image_link, self.songs_json))
+                0, self.image_link, self.songs_json, self.average_cadence, self.average_resistance))
 
             sql_cursor.execute("SELECT * FROM Cycling_Records WHERE Workout_ID=%s", (self.workout_id,))
             new_workout_entry = sql_cursor.fetchone()
@@ -193,10 +197,10 @@ def pymysql_cycling_record_table_create(mysql_settings):
         sql_cursor.execute("""CREATE TABLE IF NOT EXISTS Cycling_Records(
                                         Title VARCHAR(50),
                                         Workout_ID VARCHAR(32),
-                                        Difficulty_Rating FLOAT(4,2),
+                                        Difficulty_Rating DOUBLE(4,2),
                                         Peloton_Difficulty_Rating FLOAT(4,2),
                                         Workout_Length smallint,
-                                        User_Rating FLOAT(6,3),
+                                        User_Rating DOUBLE(6,3),
                                         Instructor VARCHAR(50),
                                         Workout_Type VARCHAR(15),
                                         Workout_Link VARCHAR(111),
@@ -208,6 +212,8 @@ def pymysql_cycling_record_table_create(mysql_settings):
                                         Hide smallint UNSIGNED,
                                         Thumbnail VARCHAR(150),
                                         Songs JSON,
+                                        Average_Cadence DOUBLE(2,0),
+                                        Average_Resistance DOUBLE(2,0),
                                         PRIMARY KEY (WORKOUT_ID)
                                         )""")
 
