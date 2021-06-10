@@ -19,6 +19,9 @@ h4.class-artists{
 h5{
     font-weight: 500;
 }
+h6{
+    font-weight: 500;
+}
 a {
     color: inherit;
     text-decoration: none;
@@ -163,14 +166,14 @@ nav {
 
 .class-difficulty{
     position: absolute;
-    top: 195px;
+    top: 177px;
     right: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 .class-rating{
     position: absolute;
-    top: 171px;
+    top: 150px;
     right: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
@@ -210,7 +213,22 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 
 }
+.class-cadence{
+    position: absolute;
+    top: 182px;
+    right: 10px;
+    color: white;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 
+}
+.class-resistance{
+    position: absolute;
+    top: 192px;
+    right: 10px;
+    color: white;
+    text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
+
+}
 .thumbs-up{
     stroke: black;
     stroke-width: 2px;
