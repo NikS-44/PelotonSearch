@@ -234,3 +234,7 @@ nav {
     stroke-width: 2px;
     paint-order: stroke fill;
 }
+
+.search-drop-down{
+    font-family: 'Open Sans', sans-serif;
+}
