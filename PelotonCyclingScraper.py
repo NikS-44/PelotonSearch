@@ -17,7 +17,8 @@ cycling_workout_types = {"7579b9edbdf9464fa19eb58193897a73": "Intervals",
                          "9f9be657134e4d868d76ae4988da01f1": "Beginner",
                          "c87e20095d80463db5ce04df7fe2b989": "Music",
                          "9745b8e2cb274a28b096387073a5d993": "Groove",
-                         "4228e9e57bf64c518d58a1d0181760c4": "Pro Cyclist"}
+                         "4228e9e57bf64c518d58a1d0181760c4": "Pro Cyclist"
+                         }
 
 
 def initialize_settings(filename):
@@ -66,7 +67,10 @@ class CyclingWorkout:
         workout_type_id = workout_info['ride']['class_type_ids'][0]
         self.air_date = datetime.utcfromtimestamp(workout_info['ride']['original_air_time']).strftime('%Y-%m-%d')
         self.image_link = workout_info['ride']['image_url']
-        self.workout_category = cycling_workout_types[workout_type_id]
+        try:
+            self.workout_category = cycling_workout_types[workout_type_id]
+        except KeyError:
+            self.workout_category = "Unknown";
         self.current_date = datetime.utcfromtimestamp(time.time()).strftime('%Y-%m-%d')
         self.target_lower_output = 0
         self.target_upper_output = 1
