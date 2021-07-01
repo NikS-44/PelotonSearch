@@ -70,7 +70,7 @@ class CyclingWorkout:
         try:
             self.workout_category = cycling_workout_types[workout_type_id]
         except KeyError:
-            self.workout_category = "Unknown";
+            self.workout_category = "Unknown"
         self.current_date = datetime.utcfromtimestamp(time.time()).strftime('%Y-%m-%d')
         self.target_lower_output = 0
         self.target_upper_output = 1
