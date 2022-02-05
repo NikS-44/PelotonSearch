@@ -1,25 +1,30 @@
-body{
+body {
     background-color:#e4e7eb;
     font-family: 'Open Sans', sans-serif;
 }
-h2{
+
+h2 {
     line-height: normal;
     font-weight: 500;
     font-size: 20px;
 }
-h4{
+
+h4 {
     line-height: 1;
     font-weight: 500;
     font-size: 15px;
 }
-h4.class-artists{
+
+h4.class-artists {
     margin: .4em;
     line-height: 1.2;
 }
-h5{
+
+h5 {
     font-weight: 500;
 }
-h6{
+
+h6 {
     font-weight: 500;
 }
 
@@ -49,6 +54,7 @@ a {
   position:relative;
   /*box-shadow: 2px 2px 3px #888888;*/
 }
+
 .searchBox {
   border: 2px;
   border-style: solid;
@@ -62,6 +68,7 @@ a {
   min-width: 350px;
   margin: auto;
 }
+
 .linkBox {
   border: 2px;
   border-style: solid;
@@ -78,66 +85,65 @@ a {
 .Hard {
     color: #c74c0e;
 }
+
 .VeryHard {
     color: #d11111;
 }
+
 .Medium {
     color: #f09618;
 }
+
 .Easy {
     color: green;
 }
+
 .VeryEasy {
     color: limegreen;
 }
-.form-control
-{
+
+.form-control {
     font-size: 13pt;
 }
+
 .dropdown
 {
     font-size: 16pt;
 }
 
-.submitbutton
-{
+.submitbutton {
     padding: 2px 20px;
     font-size: 16pt;
     color: black;
 }
 
-.copybutton
-{
+.copybutton {
     margin-bottom: 4px;
     color: black;
 }
 
-.chosen-select
-{
+.chosen-select {
     font-size: 20px;
     /*width: 325px;*/
     width:65%;
 }
 
-.chosen-select2
-{
+.chosen-select2 {
     font-size: 20px;
     width:65%;
 }
 
-.chosen-select3
-{
+.chosen-select3 {
     font-size: 20px;
     width:65%;
 }
 
-.chosen-select4
-{
+.chosen-select4 {
     font-size: 20px;
     width:65%;
 }
 
-.flexContainer{
+.flexContainer {
     display:flex;
     flex-wrap:wrap;
     text-align: center;
@@ -164,25 +170,25 @@ nav {
     font-family: Helvetica, sans-serif;
 }
 
-.chosen-container{
+.chosen-container {
     width: 325px;
 }
 
-.class-picture{
+.class-picture {
     position: relative;
     top: -1px;
     left: -1px;
     border-radius: 3px;
 }
 
-.class-difficulty{
+.class-difficulty {
     position: absolute;
     top: 177px;
     right: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
-.class-rating{
+.class-rating {
     position: absolute;
     top: 150px;
     right: 10px;
@@ -190,7 +196,7 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
-.class-title{
+.class-title {
     position: absolute;
     top: 132px;
     left: 10px;
@@ -198,16 +204,15 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
-.class-date{
+.class-date {
     position: absolute;
     top: 156px;
     left: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
-
 }
 
-.class-output{
+.class-output 
     position: absolute;
     top: 195px;
     left: 10px;
@@ -216,7 +221,7 @@ nav {
 }
 
 
-.class-instructor{
+.class-instructor 
     position: absolute;
     top: 174px;
     left: 10px;
@@ -224,29 +229,30 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 
 }
-.class-cadence{
+
+.class-cadence 
     position: absolute;
     top: 182px;
     right: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
-
 }
-.class-resistance{
+
+.class-resistance 
     position: absolute;
     top: 192px;
     right: 10px;
     color: white;
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
-
 }
-.thumbs-up{
+
+.thumbs-up 
     stroke: black;
     stroke-width: 2px;
     paint-order: stroke fill;
 }
 
-.search-drop-down{
+.search-drop-down 
     font-family: 'Open Sans', sans-serif;
     font-size: large;
 }
