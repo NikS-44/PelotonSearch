@@ -212,7 +212,7 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
-.class-output 
+.class-output {
     position: absolute;
     top: 195px;
     left: 10px;
@@ -221,7 +221,7 @@ nav {
 }
 
 
-.class-instructor 
+.class-instructor {
     position: absolute;
     top: 174px;
     left: 10px;
@@ -230,7 +230,7 @@ nav {
 
 }
 
-.class-cadence 
+.class-cadence {
     position: absolute;
     top: 182px;
     right: 10px;
@@ -238,7 +238,7 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
-.class-resistance 
+.class-resistance {
     position: absolute;
     top: 192px;
     right: 10px;
@@ -246,13 +246,13 @@ nav {
     text-shadow: -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 3px #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
 }
 
-.thumbs-up 
+.thumbs-up {
     stroke: black;
     stroke-width: 2px;
     paint-order: stroke fill;
 }
 
-.search-drop-down 
+.search-drop-down {
     font-family: 'Open Sans', sans-serif;
     font-size: large;
 }
