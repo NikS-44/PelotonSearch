@@ -93,11 +93,17 @@ font-size:20pt;
 }
 .submitbutton
 {
+    height: 30px;
+    width: 100px;
     font-size: 16pt;
+    text-align: center;
 }
 .copybutton
 {
-    margin-bottom: 3px;
+    height: 20px;
+    width: 70px;
+    font-size: 10pt;
+    text-align:center;
 }
 .chosen-select
 {
