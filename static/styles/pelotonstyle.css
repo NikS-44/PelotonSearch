@@ -94,8 +94,7 @@ font-size:20pt;
 
 .submitbutton
 {
-    height: 30px;
-    width: 100px;
+    padding: 2px 20px;
     font-size: 16pt;
     color: black;
 }
