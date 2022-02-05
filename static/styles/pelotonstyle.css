@@ -22,13 +22,20 @@ h5{
 h6{
     font-weight: 500;
 }
+
 a {
     color: inherit;
     text-decoration: none;
 }
-.TitleText {
-font-size:20pt;
+
+.title-text {
+    padding: 3px;
+    margin-top: -5px;
+    margin: -5px -5px 10px -5px;
+    font-weight: bolder;
+    background: #bfc6d0;
 }
+
 .myDiv {
   border-style: groove;
   border-radius: 5px;
