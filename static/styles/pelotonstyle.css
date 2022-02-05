@@ -97,11 +97,13 @@ font-size:20pt;
     height: 30px;
     width: 100px;
     font-size: 16pt;
+    color: black;
 }
 
 .copybutton
 {
     margin-bottom: 4px;
+    color: black;
 }
 
 .chosen-select
