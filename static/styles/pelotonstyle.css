@@ -245,5 +245,6 @@ nav {
 }
 
 .exclude {
-        font-size: small;
+    font-size: small;
+    white-space: nowrap;
 }
