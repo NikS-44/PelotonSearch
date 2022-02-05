@@ -243,3 +243,7 @@ nav {
     font-family: 'Open Sans', sans-serif;
     font-size: large;
 }
+
+.exclude-title {
+        font-size: small;
+}
