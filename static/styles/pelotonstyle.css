@@ -39,6 +39,7 @@ a {
     margin: -5px -5px 10px -5px;
     font-weight: bolder;
     background: #bfc6d0;
+    border-radius: 4px;
 }
 
 .myDiv {
