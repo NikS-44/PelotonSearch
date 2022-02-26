@@ -62,7 +62,7 @@ function UpdateSearch() {
 					diffParsed = 'VeryHard';
 				}
 				// Creating the individual class boxes
-				if (value.Difficulty_Category === 'Power Zone') {
+				if (value.Difficulty_Category === 'Power Zone' || value.Expected_Max === 1) {
 					data +=
 					    "<div class='myDiv box-shadow-hover pointer'><a href=" +
 						value.Workout_Link +
